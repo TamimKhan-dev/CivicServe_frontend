@@ -2,7 +2,7 @@ import { Lock, PlusCircle, Search, ShieldCheck, Zap } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { RadarCard } from "./RadarCard";
+import { RadarCard } from "./cards/RadarCard";
 
 const TRUST_ITEMS = [
   {
