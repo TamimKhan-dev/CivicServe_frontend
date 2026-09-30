@@ -63,7 +63,7 @@ export function HowItWorks() {
     <section
       id="how-it-works"
       aria-labelledby="how-it-works-heading"
-      className="w-full bg-slate-50"
+      className="w-full bg-slate-50 border-b-2 border-slate-100/90"
     >
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
