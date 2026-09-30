@@ -2,7 +2,7 @@ import { Footer } from "@/components/shared/Footer/Footer";
 import { Navbar } from "@/components/shared/Navbar";
 import { SystemStatusBar } from "@/components/shared/SystemStatusBar";
 
-export default async function layout({
+export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -1,0 +1,63 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+
+type GoogleButtonProps = {
+  label?: string;
+  onClick?: () => void;
+};
+
+function GoogleIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-4"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        fill="#4285F4"
+        d="M23.5 12.27c0-.85-.08-1.67-.22-2.45H12v4.64h6.45a5.52 5.52 0 0 1-2.39 3.62v3h3.87c2.27-2.09 3.57-5.17 3.57-8.81Z"
+      />
+      <path
+        fill="#34A853"
+        d="M12 24c3.24 0 5.95-1.07 7.93-2.92l-3.87-3c-1.07.72-2.44 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.96H1.27v3.09A11.99 11.99 0 0 0 12 24Z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M5.27 14.27A7.2 7.2 0 0 1 4.89 12c0-.79.14-1.55.38-2.27V6.64H1.27A11.99 11.99 0 0 0 0 12c0 1.94.46 3.77 1.27 5.36l4-3.09Z"
+      />
+      <path
+        fill="#EA4335"
+        d="M12 4.77c1.76 0 3.35.61 4.6 1.8l3.44-3.44C17.94 1.19 15.24 0 12 0 7.31 0 3.26 2.69 1.27 6.64l4 3.09C6.22 6.88 8.87 4.77 12 4.77Z"
+      />
+    </svg>
+  );
+}
+
+export function GoogleButton({
+  label = "Continue with Google",
+  onClick,
+}: GoogleButtonProps) {
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center gap-3">
+        <span className="h-px flex-1 bg-slate-200" />
+        <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500">
+          Or
+        </span>
+        <span className="h-px flex-1 bg-slate-200" />
+      </div>
+
+      <Button
+        type="button"
+        variant="outline"
+        onClick={onClick}
+        className="h-11 w-full bg-white font-medium text-slate-800"
+      >
+        <GoogleIcon />
+        {label}
+      </Button>
+    </div>
+  );
+}
