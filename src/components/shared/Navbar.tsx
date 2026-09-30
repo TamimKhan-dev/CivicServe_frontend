@@ -45,10 +45,7 @@ type NavbarProps = {
   onLogout?: () => void;
 };
 
-export function Navbar({
-  user = null,
-  onLogout,
-}: NavbarProps) {
+export function Navbar({ user = null, onLogout }: NavbarProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -56,7 +53,7 @@ export function Navbar({
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/10 backdrop-blur supports-backdrop-filter:bg-background/80">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Logo />
 

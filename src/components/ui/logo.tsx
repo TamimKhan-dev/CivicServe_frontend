@@ -2,7 +2,13 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
-export function Logo({ className, variant = "default" }: { className?: string; variant?: "default" | "light"; }) {
+export function Logo({
+  className,
+  variant = "default",
+}: {
+  className?: string;
+  variant?: "default" | "light";
+}) {
   return (
     <Link href="/" aria-label="CivicServe home" className="inline-flex">
       <svg
