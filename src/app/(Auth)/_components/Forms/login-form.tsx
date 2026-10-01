@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import type { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PasswordToggle } from "@/components/ui/password-toggle";
 import { useLogin } from "@/hooks/useAuth";
 import { loginSchema } from "@/validations";
 
@@ -79,18 +80,10 @@ export function LoginForm() {
             className="h-11 pr-11"
             {...register("password")}
           />
-          <button
-            type="button"
-            onClick={() => setShowPassword((v) => !v)}
-            aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-600"
-          >
-            {showPassword ? (
-              <EyeOff className="size-4" aria-hidden />
-            ) : (
-              <Eye className="size-4" aria-hidden />
-            )}
-          </button>
+          <PasswordToggle
+            onToggle={() => setShowPassword((v) => !v)}
+            shown={showPassword}
+          />
         </div>
         {errors.password && (
           <p role="alert" className="text-xs text-red-600">
