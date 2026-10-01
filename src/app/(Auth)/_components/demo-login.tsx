@@ -2,13 +2,11 @@
 
 import type { LucideIcon } from "lucide-react";
 import { Briefcase, Shield, User, Zap } from "lucide-react";
-
 import { cn } from "@/lib/utils";
-
-export type DemoRole = "ADMIN" | "STAFF" | "CITIZEN";
+import type { UserRole } from "@/types";
 
 type DemoOption = {
-  role: DemoRole;
+  role: UserRole;
   title: string;
   tag: string;
   subtitle: string;
@@ -52,7 +50,7 @@ const OPTIONS: DemoOption[] = [
 ];
 
 type DemoLoginProps = {
-  onSelect?: (role: DemoRole) => void;
+  onSelect?: (role: UserRole) => void;
   disabled?: boolean;
 };
 

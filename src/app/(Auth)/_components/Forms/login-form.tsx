@@ -5,43 +5,38 @@ import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
+import type { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-const loginSchema = z.object({
-  email: z.string().trim().email("Enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
+import { loginSchema } from "@/validations";
+import { useLogin } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 export type LoginValues = z.infer<typeof loginSchema>;
 
-type LoginFormProps = {
-  onSubmit?: (values: LoginValues) => Promise<void> | void;
-};
-
-export function LoginForm({ onSubmit }: LoginFormProps) {
-  const [showPassword, setShowPassword] = useState(false);
+export function LoginForm() {
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
   });
 
+  const { mutateAsync: login, isPending } = useLogin();
+
+  const onSubmit = async (payload: LoginValues) => {
+    await login(payload);
+    router.push("/");
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit(async (values) => {
-        await onSubmit?.(values);
-      })}
-      noValidate
-      className="space-y-4"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
       <div className="space-y-2">
         <Label htmlFor="email" className="font-semibold text-slate-900">
           Email
@@ -106,10 +101,10 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
 
       <Button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isPending}
         className="h-11 w-full bg-blue-600 font-semibold hover:bg-blue-700"
       >
-        {isSubmitting ? (
+        {isPending ? (
           <Loader2 className="size-4 animate-spin" aria-hidden />
         ) : (
           <>

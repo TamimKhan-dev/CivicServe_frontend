@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Providers from "@/providers";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -17,9 +18,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={cn("h-full", "antialiased", "font-sans", inter.variable)}
     >
-      <Providers>
-        <body className="min-h-full">{children}</body>
-      </Providers>
+      <body className="min-h-full">
+        <Toaster position="top-right"/>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
