@@ -1,60 +1,34 @@
 "use client";
 
-import type { LucideIcon } from "lucide-react";
-import { Briefcase, Shield, User, Zap } from "lucide-react";
+import { Zap } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useLogin } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 import type { UserRole } from "@/types";
+import { OPTIONS } from "./Others/demo-login-data";
 
-type DemoOption = {
-  role: UserRole;
-  title: string;
-  tag: string;
-  subtitle: string;
-  icon: LucideIcon;
-  iconClass: string;
-  rowClass: string;
-  tagClass: string;
-};
-
-const OPTIONS: DemoOption[] = [
+const DEMO_CREDENTIALS: Record<UserRole, { email: string; password: string }> =
   {
-    role: "ADMIN",
-    title: "Admin Demo Login",
-    tag: "Tier 1",
-    subtitle: "City Operations & Governance",
-    icon: Shield,
-    iconClass: "bg-slate-900 text-white",
-    rowClass: "border-slate-200 bg-slate-50 hover:bg-slate-100",
-    tagClass: "bg-slate-200 text-slate-700",
-  },
-  {
-    role: "STAFF",
-    title: "Staff Demo Login",
-    tag: "Field Agent",
-    subtitle: "Department Dispatch & Resolution",
-    icon: Briefcase,
-    iconClass: "bg-blue-600 text-white",
-    rowClass: "border-blue-100 bg-blue-50/60 hover:bg-blue-50",
-    tagClass: "bg-blue-100 text-blue-700",
-  },
-  {
-    role: "CITIZEN",
-    title: "Citizen Demo Login",
-    tag: "Resident",
-    subtitle: "Service Requests & Tracking",
-    icon: User,
-    iconClass: "bg-emerald-600 text-white",
-    rowClass: "border-emerald-100 bg-emerald-50/60 hover:bg-emerald-50",
-    tagClass: "bg-emerald-100 text-emerald-700",
-  },
-];
+    ADMIN: { email: "testeradmin@gmail.com", password: "Tester@admin12345" },
+    STAFF: { email: "testerstaff@gmail.com", password: "Tester@staff12345" },
+    CITIZEN: {
+      email: "testercitizen@gmail.com",
+      password: "Tester@citizen12345",
+    },
+  };
 
-type DemoLoginProps = {
-  onSelect?: (role: UserRole) => void;
-  disabled?: boolean;
-};
+export function DemoLogin() {
+  const router = useRouter();
+  const { mutate: demoLogin, isPending } = useLogin();
 
-export function DemoLogin({ onSelect, disabled }: DemoLoginProps) {
+  const handleDemoLogin = (role: UserRole) => {
+    demoLogin(DEMO_CREDENTIALS[role], {
+      onSuccess: () => {
+        router.push("/");
+      },
+    });
+  };
+
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-3">
@@ -70,8 +44,8 @@ export function DemoLogin({ onSelect, disabled }: DemoLoginProps) {
           <li key={o.role}>
             <button
               type="button"
-              disabled={disabled}
-              onClick={() => onSelect?.(o.role)}
+              disabled={isPending}
+              onClick={() => handleDemoLogin(o.role)}
               className={cn(
                 "flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition-colors disabled:cursor-not-allowed disabled:opacity-60",
                 o.rowClass,

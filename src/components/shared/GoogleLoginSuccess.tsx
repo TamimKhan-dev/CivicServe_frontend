@@ -11,7 +11,7 @@ export function GoogleLoginSuccess() {
 
   useEffect(() => {
     if (searchParams.get("success") === "true" && !hasShown.current) {
-      hasShown.current = true
+      hasShown.current = true;
       toast.success("Google login successful!");
       router.replace("/");
     }
