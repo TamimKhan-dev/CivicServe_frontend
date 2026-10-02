@@ -10,6 +10,7 @@ import {
   Phone,
   User,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -18,15 +19,21 @@ import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { PasswordToggle } from "@/components/ui/password-toggle";
-import { useRegisterUser } from "@/hooks/useAuth";
+import { useRegisterUser, useVerifyOtp } from "@/hooks/useAuth";
 import { registerSchema } from "@/validations";
+import { VerifyOtpModal } from "../modals/verify-otp-modal";
 
 export type RegisterValues = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const { mutate: registerUser, isPending } = useRegisterUser();
+  const [otpModalOpen, setOtpModalOpen] = useState(false);
+  const [userEmail, setUserEmail] = useState<string>("");
+  const { mutate: registerUser, isPending: isRegisterPending } =
+    useRegisterUser();
+  const { mutate: verifyOtp, isPending: otpVerifying } = useVerifyOtp();
 
   const {
     register,
@@ -49,124 +56,147 @@ export function RegisterForm() {
     registerUser(resInfo, {
       onSuccess: () => {
         toast.success("OTP Sent to Email Successfully!");
+        setUserEmail(payload.email);
+        setOtpModalOpen(true);
       },
     });
   };
 
+  const handleOtpVerify = (otp: string, email: string) => {
+    verifyOtp(
+      { otp, email },
+      {
+        onSuccess: () => {
+          toast.success("Email Verified Successfully!");
+          router.push("/login");
+        },
+      },
+    );
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-
-      <Field
-        id="fullName"
-        label="Full Name"
-        icon={User}
-        error={errors.name?.message}
-      >
-        <Input
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+        <Field
           id="fullName"
-          autoComplete="name"
-          placeholder="e.g. Eleanor Vance"
-          aria-invalid={!!errors.name}
-          className="h-11 pl-9"
-          {...register("name")}
-        />
-      </Field>
+          label="Full Name"
+          icon={User}
+          error={errors.name?.message}
+        >
+          <Input
+            id="fullName"
+            autoComplete="name"
+            placeholder="e.g. Eleanor Vance"
+            aria-invalid={!!errors.name}
+            className="h-11 pl-9"
+            {...register("name")}
+          />
+        </Field>
 
-      <Field
-        id="email"
-        label="Email Address"
-        icon={Mail}
-        error={errors.email?.message}
-      >
-        <Input
+        <Field
           id="email"
-          type="email"
-          autoComplete="email"
-          placeholder="name@example.com"
-          aria-invalid={!!errors.email}
-          className="h-11 pl-9"
-          {...register("email")}
-        />
-      </Field>
+          label="Email Address"
+          icon={Mail}
+          error={errors.email?.message}
+        >
+          <Input
+            id="email"
+            type="email"
+            autoComplete="email"
+            placeholder="name@example.com"
+            aria-invalid={!!errors.email}
+            className="h-11 pl-9"
+            {...register("email")}
+          />
+        </Field>
 
-      <Field
-        id="phone"
-        label="Phone Number(Optional)"
-        icon={Phone}
-        error={errors.phone?.message}
-      >
-        <Input
+        <Field
           id="phone"
-          type="tel"
-          autoComplete="tel"
-          placeholder="(+880) 1800-000000"
-          aria-invalid={!!errors.phone}
-          className="h-11 pl-9"
-          {...register("phone")}
-        />
-      </Field>
-
-      <Field
-        id="password"
-        label="Password"
-        icon={Lock}
-        error={errors.password?.message}
-        hint="At least 5 characters with a number"
-        trailing={
-          <PasswordToggle
-            shown={showPassword}
-            onToggle={() => setShowPassword((v) => !v)}
+          label="Phone Number(Optional)"
+          icon={Phone}
+          error={errors.phone?.message}
+        >
+          <Input
+            id="phone"
+            type="tel"
+            autoComplete="tel"
+            placeholder="(+880) 1800-000000"
+            aria-invalid={!!errors.phone}
+            className="h-11 pl-9"
+            {...register("phone")}
           />
-        }
-      >
-        <Input
+        </Field>
+
+        <Field
           id="password"
-          type={showPassword ? "text" : "password"}
-          autoComplete="new-password"
-          placeholder="••••••••"
-          aria-invalid={!!errors.password}
-          className="h-11 pl-9 pr-11"
-          {...register("password")}
-        />
-      </Field>
-
-      <Field
-        id="confirmPassword"
-        label="Confirm Password"
-        icon={LockKeyhole}
-        error={errors.confirmPassword?.message}
-        trailing={
-          <PasswordToggle
-            shown={showConfirm}
-            onToggle={() => setShowConfirm((v) => !v)}
+          label="Password"
+          icon={Lock}
+          error={errors.password?.message}
+          hint="At least 5 characters with a number"
+          trailing={
+            <PasswordToggle
+              shown={showPassword}
+              onToggle={() => setShowPassword((v) => !v)}
+            />
+          }
+        >
+          <Input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            autoComplete="new-password"
+            placeholder="••••••••"
+            aria-invalid={!!errors.password}
+            className="h-11 pl-9 pr-11"
+            {...register("password")}
           />
-        }
-      >
-        <Input
-          id="confirmPassword"
-          type={showConfirm ? "text" : "password"}
-          autoComplete="new-password"
-          placeholder="••••••••"
-          aria-invalid={!!errors.confirmPassword}
-          className="h-11 pl-9 pr-11"
-          {...register("confirmPassword")}
-        />
-      </Field>
+        </Field>
 
-      <Button
-        type="submit"
-        disabled={isPending}
-        className="h-11 w-full bg-blue-600 font-semibold hover:bg-blue-700"
-      >
-        {isPending ? (
-          <Loader2 className="size-4 animate-spin" aria-hidden />
-        ) : (
-          <>
-            Create Account
-            <ArrowRight className="size-4" aria-hidden />
-          </>
-        )}
-      </Button>
-    </form>
+        <Field
+          id="confirmPassword"
+          label="Confirm Password"
+          icon={LockKeyhole}
+          error={errors.confirmPassword?.message}
+          trailing={
+            <PasswordToggle
+              shown={showConfirm}
+              onToggle={() => setShowConfirm((v) => !v)}
+            />
+          }
+        >
+          <Input
+            id="confirmPassword"
+            type={showConfirm ? "text" : "password"}
+            autoComplete="new-password"
+            placeholder="••••••••"
+            aria-invalid={!!errors.confirmPassword}
+            className="h-11 pl-9 pr-11"
+            {...register("confirmPassword")}
+          />
+        </Field>
+
+        <Button
+          type="submit"
+          disabled={isRegisterPending}
+          className="h-11 w-full bg-blue-600 font-semibold hover:bg-blue-700"
+        >
+          {isRegisterPending ? (
+            <Loader2 className="size-4 animate-spin" aria-hidden />
+          ) : (
+            <>
+              Create Account
+              <ArrowRight className="size-4" aria-hidden />
+            </>
+          )}
+        </Button>
+      </form>
+
+      <VerifyOtpModal
+        open={otpModalOpen}
+        onOpenChange={setOtpModalOpen}
+        email={userEmail}
+        isPending={otpVerifying}
+        onVerify={(otp) => handleOtpVerify(otp, userEmail)}
+      />
+    </>
   );
 }

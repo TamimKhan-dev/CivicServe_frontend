@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { registerUser, userLogin } from "@/api/auth";
+import { registerUser, userLogin, verifyOtp } from "@/api/auth";
+import { getErrorMessage } from "@/lib/getErrorMessage";
 
 export function useLogin() {
   return useMutation({
@@ -9,7 +10,7 @@ export function useLogin() {
       toast.success("Logged in successfully!");
     },
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(getErrorMessage(error));
     },
   });
 }
@@ -18,7 +19,16 @@ export function useRegisterUser() {
   return useMutation({
     mutationFn: registerUser,
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(getErrorMessage(error));
+    },
+  });
+}
+
+export function useVerifyOtp() {
+  return useMutation({
+    mutationFn: verifyOtp,
+    onError: (error) => {
+      toast.error(getErrorMessage(error));
     },
   });
 }

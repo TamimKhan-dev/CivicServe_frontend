@@ -8,3 +8,15 @@ export function getInitials(name: string) {
     .join("")
     .toUpperCase();
 }
+
+export function formatTime(total: number) {
+  const m = Math.floor(total / 60);
+  const s = total % 60;
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+export function maskEmail(email: string) {
+  const [name, domain] = email.split("@");
+  if (!name || !domain) return email;
+  return `${name[0]}••••@${domain}`;
+}

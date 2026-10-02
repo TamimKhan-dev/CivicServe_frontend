@@ -9,3 +9,8 @@ export type UserRegisterPayload = {
   password: string;
   phone?: string;
 };
+
+export type OtpVerificationPayload = {
+  email: string;
+  otp: string;
+};

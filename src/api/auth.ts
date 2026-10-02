@@ -1,5 +1,9 @@
 import apiClient from "@/lib/apiClient";
-import type { UserLoginPayload, UserRegisterPayload } from "@/types";
+import type {
+  OtpVerificationPayload,
+  UserLoginPayload,
+  UserRegisterPayload,
+} from "@/types";
 
 export function userLogin(payload: UserLoginPayload) {
   return apiClient(
@@ -11,6 +15,13 @@ export function userLogin(payload: UserLoginPayload) {
 export function registerUser(payload: UserRegisterPayload) {
   return apiClient(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/register`,
+    { method: "POST", body: payload },
+  );
+}
+
+export function verifyOtp(payload: OtpVerificationPayload) {
+  return apiClient(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/verify-email`,
     { method: "POST", body: payload },
   );
 }
