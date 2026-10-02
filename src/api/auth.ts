@@ -25,3 +25,13 @@ export function verifyOtp(payload: OtpVerificationPayload) {
     { method: "POST", body: payload },
   );
 }
+
+export async function getMe() {
+  return await apiClient(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/get-me`,
+  );
+}
+
+export function logout() {
+  return apiClient(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/logout`, { method: "POST" });
+};

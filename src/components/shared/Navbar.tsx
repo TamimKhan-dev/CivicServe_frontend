@@ -4,7 +4,6 @@ import { LayoutDashboard, LogOut, Menu, PlusCircle, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,8 +22,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useGetMe, useLogout } from "@/hooks/useAuth";
 import { cn, getInitials } from "@/lib/utils";
 import { Logo } from "../ui/logo";
+import { Skeleton } from "../ui/skeleton";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -40,14 +41,13 @@ export type NavbarUser = {
   image?: string | null;
 };
 
-type NavbarProps = {
-  user?: NavbarUser | null;
-  onLogout?: () => void;
-};
-
-export function Navbar({ user = null, onLogout }: NavbarProps) {
+export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  const { mutate: Logout, isPending: isLogoutPending } = useLogout();
+  const { data, isPending } = useGetMe();
+  const user = data?.data ?? null;
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -76,79 +76,67 @@ export function Navbar({ user = null, onLogout }: NavbarProps) {
 
         {/* Right side */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {user ? (
-            <>
-              <Button
-                asChild
-                className="hidden bg-blue-600 hover:bg-blue-700 sm:inline-flex"
-              >
-                <Link href="/requests/new">
-                  <PlusCircle className="size-4" />
-                  Submit Request
-                </Link>
-              </Button>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger
-                  className="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                  aria-label="Open profile menu"
-                >
-                  <Avatar className="size-9">
-                    <AvatarImage
-                      src={user.image ?? undefined}
-                      alt={user.name}
-                    />
-                    <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel className="font-normal">
-                    <p className="truncate text-sm font-medium">{user.name}</p>
-                    <p className="truncate text-xs text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/dashboard">
-                      <LayoutDashboard className="size-4" />
-                      Dashboard
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/profile">
-                      <User className="size-4" />
-                      Profile
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onSelect={onLogout}>
-                    <LogOut className="size-4" />
-                    Log out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </>
-          ) : (
-            <>
-              <Button
-                asChild
-                variant="ghost"
-                className="hidden text-slate-700 sm:inline-flex"
-              >
-                <Link href="/login">Log in</Link>
-              </Button>
-              <Button
-                asChild
-                className="hidden bg-blue-600 hover:bg-blue-700 sm:inline-flex"
-              >
-                <Link href="/requests/new">
-                  <PlusCircle className="size-4" />
-                  Submit Request
-                </Link>
-              </Button>
-            </>
+          {!isPending && !user && (
+            <Button
+              asChild
+              variant="ghost"
+              className="hidden text-slate-700 sm:inline-flex"
+            >
+              <Link href="/login">Log in</Link>
+            </Button>
           )}
+
+          <Button
+            asChild
+            className="hidden bg-blue-600 hover:bg-blue-700 sm:inline-flex"
+          >
+            <Link href="/requests/new">
+              <PlusCircle className="size-4" />
+              Submit Request
+            </Link>
+          </Button>
+
+          {isPending ? (
+            <Skeleton className="size-9 rounded-full bg-slate-300" />
+          ) : user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                aria-label="Open profile menu"
+              >
+                <Avatar className="size-9">
+                  <AvatarImage src={user.image ?? undefined} alt={user.name} />
+                  <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel className="font-normal">
+                  <p className="truncate text-sm font-medium">{user.name}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {user.email}
+                  </p>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard">
+                    <LayoutDashboard className="size-4" />
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/profile">
+                    <User className="size-4" />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={() => Logout()} disabled={isLogoutPending} className="cursor-pointer">
+                  <LogOut className="size-4" />
+                  {isPending ? "Logging out..." : "Logout"}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : null}
 
           {/* Mobile burger */}
           <Sheet open={open} onOpenChange={setOpen}>
