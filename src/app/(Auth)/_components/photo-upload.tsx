@@ -10,11 +10,7 @@ type PhotoUploadProps = {
   error?: string;
 };
 
-export function PhotoUpload({
-  value,
-  onChange,
-  error,
-}: PhotoUploadProps) {
+export function PhotoUpload({ value, onChange, error }: PhotoUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const previewUrl = useMemo(

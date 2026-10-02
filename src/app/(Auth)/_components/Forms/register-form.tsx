@@ -11,31 +11,31 @@ import {
   User,
 } from "lucide-react";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { PasswordToggle } from "@/components/ui/password-toggle";
+import { useRegisterUser } from "@/hooks/useAuth";
 import { registerSchema } from "@/validations";
-import { PhotoUpload } from "../photo-upload";
 
 export type RegisterValues = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const { mutate: registerUser, isPending } = useRegisterUser();
 
   const {
     register,
-    control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<RegisterValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      photo: null,
-      fullName: "",
+      name: "",
       email: "",
       phone: "",
       password: "",
@@ -44,36 +44,31 @@ export function RegisterForm() {
   });
 
   const onSubmit = (payload: RegisterValues) => {
-    console.log(payload);
+    const { confirmPassword, ...resInfo } = payload;
+
+    registerUser(resInfo, {
+      onSuccess: () => {
+        toast.success("OTP Sent to Email Successfully!");
+      },
+    });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-      <Controller
-        control={control}
-        name="photo"
-        render={({ field }) => (
-          <PhotoUpload
-            value={field.value}
-            onChange={field.onChange}
-            error={errors.photo?.message}
-          />
-        )}
-      />
 
       <Field
         id="fullName"
         label="Full Name"
         icon={User}
-        error={errors.fullName?.message}
+        error={errors.name?.message}
       >
         <Input
           id="fullName"
           autoComplete="name"
           placeholder="e.g. Eleanor Vance"
-          aria-invalid={!!errors.fullName}
+          aria-invalid={!!errors.name}
           className="h-11 pl-9"
-          {...register("fullName")}
+          {...register("name")}
         />
       </Field>
 
@@ -116,7 +111,7 @@ export function RegisterForm() {
         label="Password"
         icon={Lock}
         error={errors.password?.message}
-        hint="At least 8 characters with a number"
+        hint="At least 5 characters with a number"
         trailing={
           <PasswordToggle
             shown={showPassword}
@@ -160,10 +155,10 @@ export function RegisterForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isPending}
         className="h-11 w-full bg-blue-600 font-semibold hover:bg-blue-700"
       >
-        {isSubmitting ? (
+        {isPending ? (
           <Loader2 className="size-4 animate-spin" aria-hidden />
         ) : (
           <>
