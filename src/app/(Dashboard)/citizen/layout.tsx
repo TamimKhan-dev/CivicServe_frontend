@@ -1,9 +1,18 @@
 import type { ReactNode } from "react";
+import RoleGuard from "@/components/guards/role-guard";
+import { DashboardShell } from "../_components/common/dashboard-shell";
 
 export default function CitizenDashboardLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  return <div>{children}</div>;
+
+  return (
+    <RoleGuard roles={["CITIZEN"]}>
+      <DashboardShell user={{ name: "tamim", role: "CITIZEN" }}>
+        {children}
+      </DashboardShell>
+    </RoleGuard>
+  );
 }
