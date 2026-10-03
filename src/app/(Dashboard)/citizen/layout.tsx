@@ -7,12 +7,9 @@ export default function CitizenDashboardLayout({
 }: {
   children: ReactNode;
 }) {
-
   return (
     <RoleGuard roles={["CITIZEN"]}>
-      <DashboardShell user={{ name: "tamim", role: "CITIZEN" }}>
-        {children}
-      </DashboardShell>
+      <DashboardShell>{children}</DashboardShell>
     </RoleGuard>
   );
 }

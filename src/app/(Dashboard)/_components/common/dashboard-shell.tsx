@@ -1,29 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { useGetMe, useLogout } from "@/hooks/useAuth";
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardSidebar } from "./dashboard-sidebar";
-import type { DashboardUser } from "./nav-config";
 
-type DashboardShellProps = {
-  user: DashboardUser;
-  children: React.ReactNode;
-  onLogout?: () => void;
-};
-
-export function DashboardShell({
-  user,
-  children,
-  onLogout,
-}: DashboardShellProps) {
+export function DashboardShell({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { mutate: logout } = useLogout();
+  const { data } = useGetMe();
+  const user = data?.data;
 
   return (
     <div className="flex min-h-dvh bg-slate-50">
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 border-r bg-white lg:block">
-        <DashboardSidebar user={user} onLogout={onLogout} />
+        <DashboardSidebar user={user} onLogout={() => logout()} />
       </aside>
 
       {/* Mobile sidebar */}
@@ -32,7 +25,7 @@ export function DashboardShell({
           <SheetTitle className="sr-only">Navigation menu</SheetTitle>
           <DashboardSidebar
             user={user}
-            onLogout={onLogout}
+            onLogout={() => logout()}
             onNavigate={() => setMobileOpen(false)}
           />
         </SheetContent>
@@ -43,7 +36,7 @@ export function DashboardShell({
         <DashboardHeader
           user={user}
           onMenuClick={() => setMobileOpen(true)}
-          onLogout={onLogout}
+          onLogout={() => logout()}
         />
         <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </div>

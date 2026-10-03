@@ -18,7 +18,7 @@ export default function GuestGuard({ children }: { children: ReactNode }) {
   }, [isPending, isError, user, router]);
 
   if (isPending) {
-    return <AuthLoading label="Verifying" />;
+    return <AuthLoading label="Redirecting..." />;
   }
 
   if (isError || !user) {

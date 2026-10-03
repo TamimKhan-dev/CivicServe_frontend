@@ -49,9 +49,9 @@ export function DashboardHeader({
     href: "/" + segments.slice(0, i + 1).join("/"),
   }));
 
- if (segments.length === 1) {
-  crumbs.push({ label: "Overview", href: `/${segments[0]}` });
-}
+  if (segments.length === 1) {
+    crumbs.push({ label: "Overview", href: `/${segments[0]}` });
+  }
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-white px-4 sm:px-6 lg:px-8">

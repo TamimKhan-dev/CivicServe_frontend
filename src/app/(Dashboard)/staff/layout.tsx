@@ -9,9 +9,7 @@ export default function StaffDashboardLayout({
 }) {
   return (
     <RoleGuard roles={["STAFF"]}>
-      <DashboardShell user={{ name: "tamim", role: "STAFF" }}>
-        {children}
-      </DashboardShell>
+      <DashboardShell>{children}</DashboardShell>
     </RoleGuard>
   );
 }
