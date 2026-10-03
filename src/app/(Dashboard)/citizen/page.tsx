@@ -1,89 +1,15 @@
-import {
-  CheckCircle2,
-  ClipboardList,
-  Clock,
-  Lightbulb,
-  Plus,
-  RefreshCw,
-  Split,
-  Trash2,
-} from "lucide-react";
+import { Plus } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  type RecentRequest,
-  RecentRequests,
-} from "../_components/citizen/overview/recent-requests";
-import {
-  StatCard,
-  type StatCardProps,
-} from "../_components/citizen/overview/stat-cards";
+import CitizenStats from "../_components/citizen/overview/citizen-stats";
+import { RecentRequests } from "../_components/citizen/overview/recent-requests";
 import WelcomeHeading from "../_components/citizen/overview/welcome-heading";
 
 export const metadata: Metadata = {
   title: "Overview | CivicServe",
 };
-
-// Demo data
-const STATS: StatCardProps[] = [
-  {
-    label: "Total Requests",
-    value: 16,
-    description: "Submitted across all categories",
-    icon: ClipboardList,
-    iconClass: "bg-indigo-100 text-indigo-600",
-  },
-  {
-    label: "Pending",
-    value: 2,
-    description: "Awaiting municipal assignment",
-    icon: Clock,
-    iconClass: "bg-amber-100 text-amber-600",
-  },
-  {
-    label: "In Progress",
-    value: 3,
-    description: "Crew dispatched & active",
-    icon: RefreshCw,
-    iconClass: "bg-sky-100 text-sky-600",
-  },
-  {
-    label: "Resolved",
-    value: 11,
-    description: "100% verified closure",
-    icon: CheckCircle2,
-    iconClass: "bg-emerald-100 text-emerald-600",
-  },
-];
-
-const RECENT_REQUESTS: RecentRequest[] = [
-  {
-    id: "#CV-84912",
-    title: "Pothole Remediation on Elm St & 5th Ave",
-    category: "Road Maintenance",
-    submittedAt: "Oct 24, 2025",
-    status: "IN_PROGRESS",
-    icon: Split,
-  },
-  {
-    id: "#CV-84880",
-    title: "Streetlight Fixture Failure & Flickering",
-    category: "Traffic & Lighting",
-    submittedAt: "Oct 22, 2025",
-    status: "PENDING",
-    icon: Lightbulb,
-  },
-  {
-    id: "#CV-84701",
-    title: "Missed Residential Bulk Waste Collection",
-    category: "Waste & Sanitation",
-    submittedAt: "Oct 19, 2025",
-    status: "RESOLVED",
-    icon: Trash2,
-  },
-];
 
 export default function CitizenOverviewPage() {
   return (
@@ -126,13 +52,11 @@ export default function CitizenOverviewPage() {
         aria-label="Request statistics"
         className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"
       >
-        {STATS.map((stat) => (
-          <StatCard key={stat.label} {...stat} />
-        ))}
+        <CitizenStats />
       </section>
 
       {/* Recent requests */}
-      <RecentRequests requests={RECENT_REQUESTS} />
+      <RecentRequests />
     </div>
   );
 }

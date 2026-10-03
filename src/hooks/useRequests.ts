@@ -1,13 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { myRequests } from "@/api/requests";
-import { getErrorMessage } from "@/lib/getErrorMessage";
+import { useQuery } from "@tanstack/react-query";
+import { citizenStats, myRequests } from "@/api/requests";
 
 export function useMyRequests() {
-  return useMutation({
-    mutationFn: myRequests,
-    onError: (error) => {
-      toast.error(getErrorMessage(error));
-    },
+  return useQuery({
+    queryKey: ["my-requests"],
+    queryFn: myRequests,
+  });
+}
+
+export function useCitizenStats() {
+  return useQuery({
+    queryKey: ["citizen-stats"],
+    queryFn: citizenStats,
   });
 }

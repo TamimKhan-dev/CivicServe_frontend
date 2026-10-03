@@ -20,3 +20,11 @@ export function maskEmail(email: string) {
   if (!name || !domain) return email;
   return `${name[0]}••••@${domain}`;
 }
+
+export function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "long",
+    day: "2-digit",
+    year: "numeric",
+  });
+}
