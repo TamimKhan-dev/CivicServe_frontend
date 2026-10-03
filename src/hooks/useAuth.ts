@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { getMe, logout, registerUser, userLogin, verifyOtp } from "@/api/auth";
 import { getErrorMessage } from "@/lib/getErrorMessage";
-import { useRouter } from "next/navigation";
 
 export function useLogin() {
   const queryClient = useQueryClient();
@@ -51,7 +51,7 @@ export function useLogout() {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: logout, 
+    mutationFn: logout,
     onSuccess: () => {
       queryClient.clear();
       toast.success("Logout was Successful!");
@@ -59,6 +59,6 @@ export function useLogout() {
     },
     onError: (error) => {
       toast.error(getErrorMessage(error));
-    }
+    },
   });
-};
+}

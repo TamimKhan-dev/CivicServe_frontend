@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/sheet";
 import { useGetMe, useLogout } from "@/hooks/useAuth";
 import { cn, getInitials } from "@/lib/utils";
+import type { UserRole } from "@/types";
 import { Logo } from "../ui/logo";
 import { Skeleton } from "../ui/skeleton";
 
@@ -35,12 +36,6 @@ const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
-export type NavbarUser = {
-  name: string;
-  email: string;
-  image?: string | null;
-};
-
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -48,9 +43,16 @@ export function Navbar() {
   const { mutate: Logout, isPending: isLogoutPending } = useLogout();
   const { data, isPending } = useGetMe();
   const user = data?.data ?? null;
+  const role: UserRole = !!user && user.role;
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const dashboardRoute: Record<UserRole, string> = {
+    ADMIN: "/admin",
+    CITIZEN: "/citizen",
+    STAFF: "/staff",
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/10 backdrop-blur supports-backdrop-filter:bg-background/80">
@@ -118,10 +120,12 @@ export function Navbar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="/dashboard">
-                    <LayoutDashboard className="size-4" />
-                    Dashboard
-                  </Link>
+                  {role && (
+                    <Link href={dashboardRoute[role]}>
+                      <LayoutDashboard className="size-4" />
+                      Dashboard
+                    </Link>
+                  )}
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/profile">
@@ -130,7 +134,11 @@ export function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={() => Logout()} disabled={isLogoutPending} className="cursor-pointer">
+                <DropdownMenuItem
+                  onSelect={() => Logout()}
+                  disabled={isLogoutPending}
+                  className="cursor-pointer"
+                >
                   <LogOut className="size-4" />
                   {isPending ? "Logging out..." : "Logout"}
                 </DropdownMenuItem>
