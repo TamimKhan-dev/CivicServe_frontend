@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useMyRequests } from "@/hooks/useRequests";
+import { useMyRecentRequests } from "@/hooks/useRequests";
 import { formatDate } from "@/lib/utils";
 import type { Requests } from "@/types/requests-types";
 import {
@@ -21,7 +21,7 @@ import {
 import { StatusBadge } from "./status-badge";
 
 export function RecentRequests() {
-  const { data, isPending } = useMyRequests();
+  const { data, isPending } = useMyRecentRequests();
   const requests: Requests[] = data?.data?.requests;
 
   return (

@@ -1,12 +1,18 @@
 import type { LucideIcon } from "lucide-react";
 
+export type PaymentStatus =
+  | "PENDING"
+  | "PAID"
+  | "FAILED"
+  | "CANCELLED"
+  | "REFUNDED";
+export type RequestType = "COMPLAINT_REQUEST" | "SERVICE_REQUEST";
 export type RequestStatus =
   | "SUBMITTED"
   | "ASSIGNED"
   | "IN_PROGRESS"
   | "RESOLVED"
   | "REJECTED";
-type RequestType = "COMPLAINT_REQUEST" | "SERVICE_REQUEST";
 
 export type Requests = {
   id: string;
@@ -53,4 +59,23 @@ export type CitizenStatsData = {
   pendingRequests: number;
   inProgressRequests: number;
   resolvedRequests: number;
+};
+
+export type Category = {
+  id: string;
+  name: string;
+  description: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type QueryParams = {
+  page: number;
+  limit: number;
+  searchTerm?: string;
+  status?: string;
+  categoryId?: string;
+  sortBy: string;
+  sortOrder: "asc" | "desc";
 };

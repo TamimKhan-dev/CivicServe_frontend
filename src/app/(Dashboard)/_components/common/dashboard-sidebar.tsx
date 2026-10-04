@@ -21,12 +21,12 @@ export function DashboardSidebar({
 }: DashboardSidebarProps) {
   const pathname = usePathname();
 
- const rootHref = `/${user.role.toLowerCase()}`;
+  const rootHref = `/${user.role.toLowerCase()}`;
 
-const isActive = (href: string) =>
-  href === rootHref
-    ? pathname === href
-    : pathname === href || pathname.startsWith(`${href}/`);
+  const isActive = (href: string) =>
+    href === rootHref
+      ? pathname === href
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <div className="flex h-full flex-col">

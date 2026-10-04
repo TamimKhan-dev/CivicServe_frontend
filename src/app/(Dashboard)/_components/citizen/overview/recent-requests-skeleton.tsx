@@ -35,7 +35,6 @@ export function RequestRowsSkeleton({ count = ROW_COUNT }: { count?: number }) {
   );
 }
 
-/** Mobile: render inside the <ul> while loading. */
 export function RequestListSkeleton({ count = ROW_COUNT }: { count?: number }) {
   return (
     <>
