@@ -12,7 +12,7 @@ import {
   type RequestFilterValues,
 } from "./requests-filters";
 
-const PAGE_SIZE = 1;
+const PAGE_SIZE = 5;
 
 export default function RequestData() {
   const router = useRouter();

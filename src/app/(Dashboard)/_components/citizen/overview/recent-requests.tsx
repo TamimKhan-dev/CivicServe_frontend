@@ -14,6 +14,7 @@ import {
 import { useMyRecentRequests } from "@/hooks/useRequests";
 import { formatDate } from "@/lib/utils";
 import type { Requests } from "@/types/requests-types";
+import { EmptyState } from "../../common/table-empty-state";
 import {
   RequestListSkeleton,
   RequestRowsSkeleton,
@@ -64,6 +65,12 @@ export function RecentRequests() {
           <TableBody>
             {isPending ? (
               <RequestRowsSkeleton />
+            ) : requests.length === 0 ? (
+              <TableRow className="hover:bg-transparent">
+                <TableCell colSpan={6}>
+                  <EmptyState />
+                </TableCell>
+              </TableRow>
             ) : (
               requests.map(({ id, title, category, createdAt, status }) => (
                 <TableRow key={id}>

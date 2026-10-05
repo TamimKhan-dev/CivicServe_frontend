@@ -4,11 +4,12 @@ import { Label } from "@/components/ui/label";
 type FieldProps = {
   id: string;
   label: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
   error?: string;
   hint?: string;
   trailing?: React.ReactNode;
   children: React.ReactNode;
+  labelAction?: React.ReactNode;
 };
 
 export function Field({
@@ -26,10 +27,12 @@ export function Field({
         {label}
       </Label>
       <div className="relative">
-        <Icon
-          className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400"
-          aria-hidden
-        />
+        {Icon && (
+          <Icon
+            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400"
+            aria-hidden
+          />
+        )}
         {children}
         {trailing}
       </div>

@@ -1,5 +1,12 @@
 import apiClient from "@/lib/apiClient";
-import type { QueryParams } from "@/types/requests-types";
+import type {
+  ApiList,
+  CreateRequestPayload,
+  CreateRequestResponse,
+  Department,
+  QueryParams,
+  Service,
+} from "@/types/requests-types";
 
 export function myRecentRequests() {
   return apiClient(
@@ -31,4 +38,29 @@ export function myRequests(query: QueryParams) {
   return apiClient(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/request/my-requests?${params.toString()}`,
   );
+}
+
+export function allDepartments() {
+  return apiClient<ApiList<Department>>("/api/v1/department/all-departments");
+}
+
+export function allServices() {
+  return apiClient<ApiList<Service>>("/api/v1/service/all-services");
+}
+
+export function createRequest(payload: CreateRequestPayload) {
+  return apiClient<CreateRequestResponse>("/api/v1/request/create-request", {
+    method: "POST",
+    body: payload,
+  });
+}
+
+export function uploadRequestImage(requestId: string, file: File) {
+  const formData = new FormData();
+  formData.append("imageUrl", file);
+
+  return apiClient(`/api/v1/request/${requestId}/image`, {
+    method: "POST",
+    body: formData,
+  });
 }
