@@ -16,13 +16,6 @@ export type RequestFilterValues = {
   sort: "newest" | "oldest";
 };
 
-export const DEFAULT_REQUEST_FILTERS: RequestFilterValues = {
-  search: "",
-  status: "ALL",
-  category: "ALL",
-  sort: "newest",
-};
-
 const STATUS_OPTIONS = [
   { value: "SUBMITTED", label: "Pending" },
   { value: "ASSIGNED", label: "Assigned" },

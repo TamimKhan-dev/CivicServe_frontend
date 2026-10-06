@@ -1,5 +1,6 @@
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import RequestData from "../../_components/citizen/my-requests/request-data";
 import CitizenStats from "../../_components/citizen/overview/citizen-stats";
@@ -42,7 +43,9 @@ export default function MyRequests() {
       </section>
 
       {/* Search, filter, pagegination + Table data */}
-      <RequestData />
+      <Suspense fallback={null}>
+        <RequestData />
+      </Suspense>
     </div>
   );
 }

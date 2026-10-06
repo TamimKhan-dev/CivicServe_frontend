@@ -1,37 +1,35 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { useCategories, useMyRequests } from "@/hooks/useRequests";
+import { useUrlFilters } from "@/hooks/useUrlFilters";
 import type { Category } from "@/types/requests-types";
 import { RequestFiltersSkeleton } from "./request-filter-skeleton";
 import MyRequestsTable from "./request-table";
-import {
-  DEFAULT_REQUEST_FILTERS,
-  RequestFilters,
-  type RequestFilterValues,
-} from "./requests-filters";
+import { RequestFilters, type RequestFilterValues } from "./requests-filters";
 
 const PAGE_SIZE = 5;
 
+const REQUEST_URL_DEFAULTS = {
+  searchTerm: "",
+  status: "",
+  categoryId: "",
+  sortOrder: "desc",
+  page: "1",
+};
+
 export default function RequestData() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [filters, setFilters] = useState(DEFAULT_REQUEST_FILTERS);
-  const [page, setPage] = useState(() => {
-    const value = Number(searchParams.get("page"));
-    return Number.isInteger(value) && value > 0 ? value : 1;
-  });
-
-  const [debouncedSearch, setDebouncedSearch] = useState(
-    () => searchParams.get("searchTerm") ?? "",
+  const { values, setParams, searchText, setSearchText } = useUrlFilters(
+    REQUEST_URL_DEFAULTS,
+    "searchTerm",
   );
+  const page = Math.max(1, Number(values.page) || 1);
 
-  useEffect(() => {
-    const id = setTimeout(() => setDebouncedSearch(filters?.search), 400);
-    return () => clearTimeout(id);
-  }, [filters.search]);
+  const filters: RequestFilterValues = {
+    search: searchText,
+    status: values.status || "ALL",
+    category: values.categoryId || "ALL",
+    sort: values.sortOrder === "asc" ? "oldest" : "newest",
+  };
 
   const { data: categoryRes, isPending: isCategoryPending } = useCategories();
   const categories: Category[] = categoryRes?.data ?? [];
@@ -42,11 +40,11 @@ export default function RequestData() {
   const { data, isPending: isRequestPending } = useMyRequests({
     page,
     limit: PAGE_SIZE,
-    searchTerm: debouncedSearch.trim() || undefined,
-    status: filters.status === "ALL" ? undefined : filters.status,
-    categoryId: filters.category === "ALL" ? undefined : filters.category,
+    searchTerm: values.searchTerm || undefined,
+    status: values.status || undefined,
+    categoryId: values.categoryId || undefined,
     sortBy: "createdAt",
-    sortOrder: filters.sort === "newest" ? "desc" : "asc",
+    sortOrder: values.sortOrder as "asc" | "desc",
   });
 
   const requests = data?.data?.requests ?? [];
@@ -54,47 +52,21 @@ export default function RequestData() {
   const totalPages = data?.data?.meta?.totalPages ?? 1;
 
   const handleFilterChange = (data: RequestFilterValues) => {
-    setFilters(data);
-    setPage(1);
+    setSearchText(data.search);
+
+    const filterChanged =
+      data.status !== filters.status ||
+      data.category !== filters.category ||
+      data.sort !== filters.sort;
+
+    if (filterChanged) {
+      setParams({
+        status: data.status === "ALL" ? "" : data.status,
+        categoryId: data.category === "ALL" ? "" : data.category,
+        sortOrder: data.sort === "oldest" ? "asc" : "desc",
+      });
+    }
   };
-
-  useEffect(() => {
-    const params = new URLSearchParams();
-
-    if (debouncedSearch.trim()) {
-      params.set("searchTerm", debouncedSearch.trim());
-    }
-
-    if (filters.status !== "ALL") {
-      params.set("status", filters.status);
-    }
-
-    if (filters.category !== "ALL") {
-      params.set("categoryId", filters.category);
-    }
-
-    if (filters.sort !== "newest") {
-      params.set("sortOrder", "asc");
-    }
-
-    if (page > 1) {
-      params.set("page", String(page));
-    }
-
-    const queryString = params.toString();
-
-    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
-      scroll: false,
-    });
-  }, [
-    debouncedSearch,
-    filters.status,
-    filters.category,
-    filters.sort,
-    page,
-    pathname,
-    router,
-  ]);
 
   return (
     <>
@@ -117,7 +89,7 @@ export default function RequestData() {
         totalPages={totalPages}
         totalItems={totalItems}
         pageSize={PAGE_SIZE}
-        onPageChange={setPage}
+        onPageChange={(p) => setParams({ page: String(p) })}
       />
     </>
   );
