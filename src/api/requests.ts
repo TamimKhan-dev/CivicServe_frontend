@@ -64,3 +64,13 @@ export function uploadRequestImage(requestId: string, file: File) {
     body: formData,
   });
 }
+
+export function createCheckoutSession(requestId: string) {
+  return apiClient(`/api/v1/payments/checkout/${requestId}`, {
+    method: "POST",
+  });
+}
+
+export function getPaymentDetails(sessionId: string) {
+  return apiClient(`/api/v1/payments/session/${sessionId}`);
+}

@@ -1,14 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import {
   allCategories,
   allDepartments,
   allServices,
   citizenStats,
+  createCheckoutSession,
   createRequest,
+  getPaymentDetails,
   myRecentRequests,
   myRequests,
   uploadRequestImage,
 } from "@/api/requests";
+import { getErrorMessage } from "@/lib/getErrorMessage";
 import type { CreateRequestPayload, QueryParams } from "@/types/requests-types";
 
 const TEN_MINUTES = 10 * 60 * 1000;
@@ -87,5 +91,32 @@ export function useCreateRequest() {
       queryClient.invalidateQueries({ queryKey: ["my-recent-requests"] });
       queryClient.invalidateQueries({ queryKey: ["citizen-stats"] });
     },
+  });
+}
+
+export function useCreatePayment() {
+  return useMutation({
+    mutationFn: createCheckoutSession,
+    onSuccess: (response) => {
+      const paymentUrl = response?.data?.paymentUrl;
+
+      if (paymentUrl) {
+        window.location.href = paymentUrl;
+      } else {
+        console.error("Payment URL missing from backend response", response);
+        toast.error("Could not find the payment redirect link.");
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error(getErrorMessage(error));
+    },
+  });
+}
+
+export function usePaymentDetails(sessionId: string) {
+  return useQuery({
+    queryKey: ["payment-success", sessionId],
+    queryFn: () => getPaymentDetails(sessionId)
   });
 }

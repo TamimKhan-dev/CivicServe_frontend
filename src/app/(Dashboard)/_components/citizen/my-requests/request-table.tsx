@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useCreatePayment } from "@/hooks/useRequests";
 import { cn, formatDate } from "@/lib/utils";
 import type {
   PaymentStatus,
@@ -118,10 +119,13 @@ export default function MyRequestsTable({
   onPageChange,
   totalItems,
   pageSize = 10,
-  onPayNow,
-  payingId = null,
 }: MyRequestsTableProps) {
   const isEmpty = !isPending && requests.length === 0;
+  const {
+    mutate: createPayment,
+    isPending: isPaymentPending,
+    variables: payingRequestId,
+  } = useCreatePayment();
 
   return (
     <Card className="gap-0 overflow-hidden rounded-2xl bg-white py-0 shadow-sm">
@@ -192,8 +196,10 @@ export default function MyRequestsTable({
                             {needsPayment(request) && (
                               <PayNowButton
                                 request={request}
-                                onPayNow={onPayNow}
-                                paying={payingId === id}
+                                onPayNow={() => createPayment(id)}
+                                paying={
+                                  isPaymentPending && payingRequestId === id
+                                }
                               />
                             )}
                             <ViewDetails id={id} />
@@ -243,8 +249,8 @@ export default function MyRequestsTable({
                       {needsPayment(request) && (
                         <PayNowButton
                           request={request}
-                          onPayNow={onPayNow}
-                          paying={payingId === id}
+                          onPayNow={() => createPayment(id)}
+                          paying={isPaymentPending && payingRequestId === id}
                         />
                       )}
                       <ViewDetails id={id} />
