@@ -1,20 +1,16 @@
 "use client";
 
-import { cn } from "cn";
 import { CheckCircle2, ClipboardList, Clock, RefreshCw } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { useCitizenStats } from "@/hooks/useRequests";
-import type {
-  CitizenStatCards,
-  CitizenStatsData,
-} from "@/types/requests-types";
-import { StatCardSkeleton } from "./stat-card-skeleton";
+import type { CitizenStatsData } from "@/types/requests-types";
+import type { StatItem } from "../../common/stats/stats-card";
+import { StatsGrid } from "../../common/stats/stats-grid";
 
 export default function CitizenStats() {
   const { data, isPending } = useCitizenStats();
   const stats: CitizenStatsData = data?.data;
 
-  const STATS: CitizenStatCards[] = [
+  const items: StatItem[] = [
     {
       label: "Total Requests",
       value: stats?.totalRequests ?? 0,
@@ -44,38 +40,8 @@ export default function CitizenStats() {
       iconClass: "bg-emerald-100 text-emerald-600",
     },
   ];
+
   return (
-    <>
-      {isPending
-        ? Array.from({ length: 4 }).map((_, i) => <StatCardSkeleton key={i} />)
-        : STATS.map((stat) => (
-            <Card
-              key={stat.label}
-              className="gap-0 rounded-2xl bg-white py-0 shadow-sm"
-            >
-              <CardContent className="p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <p className="text-xs font-semibold text-slate-600">
-                    {stat.label}
-                  </p>
-                  <span
-                    className={cn(
-                      "flex size-9 shrink-0 items-center justify-center rounded-lg",
-                      stat.iconClass,
-                    )}
-                  >
-                    <stat.icon className="size-4" aria-hidden />
-                  </span>
-                </div>
-                <p className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-sm text-slate-600">
-                  {stat.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-    </>
+    <StatsGrid stats={items} isPending={isPending} label="Request statistics" />
   );
 }
