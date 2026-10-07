@@ -2,18 +2,16 @@
 
 import { Check, Copy, CreditCard } from "lucide-react";
 import { useState } from "react";
-import { cn, formatDate } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 export type PaymentReceipt = {
   amount: string;
   currency: string;
   status: "PAID" | "PENDING";
   requestId: string;
+  service: string;
   method: string;
   paidAt: string;
-  request: {
-    service: { name: string}
-  }
 };
 
 const STATUS_STYLES = {
@@ -29,16 +27,18 @@ const STATUS_STYLES = {
   },
 };
 
-function Row({
+export function ReceiptRow({
   label,
   children,
+  labelClassName,
 }: {
-  label: string;
+  label: React.ReactNode;
   children: React.ReactNode;
+  labelClassName?: string;
 }) {
   return (
     <div className="flex items-center justify-between gap-4 py-3 text-sm">
-      <dt className="shrink-0 text-slate-600">{label}</dt>
+      <dt className={cn("shrink-0 text-slate-600", labelClassName)}>{label}</dt>
       <dd className="flex min-w-0 items-center justify-end gap-2 text-right font-semibold text-slate-900">
         {children}
       </dd>
@@ -46,23 +46,41 @@ function Row({
   );
 }
 
-export default function PaymentReceiptDetails({
+export function CopyIdButton({ value }: { value: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      console.log("Something went wrong with the Payment!");
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      aria-label="Copy request ID"
+      className="rounded p-1 text-slate-500 transition-colors hover:bg-white hover:text-slate-800"
+    >
+      {copied ? (
+        <Check className="size-3.5 text-emerald-600" aria-hidden />
+      ) : (
+        <Copy className="size-3.5" aria-hidden />
+      )}
+    </button>
+  );
+}
+
+export function PaymentReceiptDetails({
   receipt,
 }: {
   receipt: PaymentReceipt;
 }) {
-  const [copied, setCopied] = useState(false);
-  const status = STATUS_STYLES[receipt?.status];
-
-  const copyRequestId = async () => {
-    try {
-      await navigator.clipboard.writeText(receipt?.requestId);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
+  const status = STATUS_STYLES[receipt.status];
 
   return (
     <div className="rounded-xl bg-indigo-50/70 p-5">
@@ -73,54 +91,46 @@ export default function PaymentReceiptDetails({
         </span>
         <span className="flex items-baseline gap-1">
           <span className="text-3xl font-extrabold tracking-tight text-slate-900">
-            {receipt?.amount}$
+            {receipt.amount}
+          </span>
+          <span className="text-[10px] font-semibold text-slate-500">
+            {receipt.currency}
           </span>
         </span>
       </div>
 
       {/* Details list */}
       <dl className="divide-y divide-slate-200/70 border-t border-slate-200/70">
-        <Row label="Status">
+        <ReceiptRow label="Status">
           <span
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold",
-              status?.pill,
+              status.pill,
             )}
           >
             <span
-              className={cn("size-1.5 rounded-full", status?.dot)}
+              className={cn("size-1.5 rounded-full", status.dot)}
               aria-hidden
             />
-            {status?.label}
+            {status.label}
           </span>
-        </Row>
+        </ReceiptRow>
 
-        <Row label="Request ID">
-          <span className="font-mono text-xs max-w-45 truncate">{receipt?.requestId}</span>
-          <button
-            type="button"
-            onClick={copyRequestId}
-            aria-label="Copy request ID"
-            className="rounded p-1 text-slate-500 transition-colors hover:bg-white hover:text-slate-800"
-          >
-            {copied ? (
-              <Check className="size-3.5 text-emerald-600" aria-hidden />
-            ) : (
-              <Copy className="size-3.5" aria-hidden />
-            )}
-          </button>
-        </Row>
+        <ReceiptRow label="Request ID">
+          <span className="font-mono text-xs">{receipt.requestId}</span>
+          <CopyIdButton value={receipt.requestId} />
+        </ReceiptRow>
 
-        <Row label="Service">{receipt?.request.service.name}</Row>
+        <ReceiptRow label="Service">{receipt.service}</ReceiptRow>
 
-        <Row label="Payment Method">
+        <ReceiptRow label="Payment Method">
           <CreditCard className="size-4 shrink-0 text-slate-600" aria-hidden />
-          Stripe
-        </Row>
+          {receipt.method}
+        </ReceiptRow>
 
-        <Row label="Timestamp">
-          <span className="font-medium">{formatDate(receipt?.paidAt)}</span>
-        </Row>
+        <ReceiptRow label="Timestamp">
+          <span className="font-medium">{receipt.paidAt}</span>
+        </ReceiptRow>
       </dl>
     </div>
   );

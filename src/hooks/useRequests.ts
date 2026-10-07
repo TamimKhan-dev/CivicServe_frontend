@@ -8,6 +8,7 @@ import {
   createCheckoutSession,
   createRequest,
   getPaymentDetails,
+  getSingleRequest,
   myRecentRequests,
   myRequests,
   uploadRequestImage,
@@ -117,6 +118,13 @@ export function useCreatePayment() {
 export function usePaymentDetails(sessionId: string) {
   return useQuery({
     queryKey: ["payment-success", sessionId],
-    queryFn: () => getPaymentDetails(sessionId)
+    queryFn: () => getPaymentDetails(sessionId),
+  });
+}
+
+export function useSingleRequest(requestId: string) {
+  return useQuery({
+    queryKey: ["single-request", requestId],
+    queryFn: () => getSingleRequest(requestId),
   });
 }

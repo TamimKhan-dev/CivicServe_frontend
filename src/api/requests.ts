@@ -74,3 +74,7 @@ export function createCheckoutSession(requestId: string) {
 export function getPaymentDetails(sessionId: string) {
   return apiClient(`/api/v1/payments/session/${sessionId}`);
 }
+
+export function getSingleRequest(requestId: string) {
+  return apiClient(`/api/v1/request/${requestId}`);
+}
