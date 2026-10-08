@@ -78,3 +78,11 @@ export function getPaymentDetails(sessionId: string) {
 export function getSingleRequest(requestId: string) {
   return apiClient(`/api/v1/request/${requestId}`);
 }
+
+export function getStaffStats() {
+  return apiClient(`/api/v1/request/staff-stats`);
+}
+
+export function getRecentAssignedTasks() {
+  return apiClient(`/api/v1/request/all-requests?sortOrder=desc&limit=3`);
+}

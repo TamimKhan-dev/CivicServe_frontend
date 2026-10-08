@@ -8,7 +8,9 @@ import {
   createCheckoutSession,
   createRequest,
   getPaymentDetails,
+  getRecentAssignedTasks,
   getSingleRequest,
+  getStaffStats,
   myRecentRequests,
   myRequests,
   uploadRequestImage,
@@ -29,6 +31,13 @@ export function useCitizenStats() {
   return useQuery({
     queryKey: ["citizen-stats"],
     queryFn: citizenStats,
+  });
+}
+
+export function useStaffStats() {
+  return useQuery({
+    queryKey: ["staff-stats"],
+    queryFn: getStaffStats,
   });
 }
 
@@ -126,5 +135,12 @@ export function useSingleRequest(requestId: string) {
   return useQuery({
     queryKey: ["single-request", requestId],
     queryFn: () => getSingleRequest(requestId),
+  });
+}
+
+export function useRecentAssignedTasks() {
+  return useQuery({
+    queryKey: ["recent-assigned-tasks"],
+    queryFn: getRecentAssignedTasks,
   });
 }
