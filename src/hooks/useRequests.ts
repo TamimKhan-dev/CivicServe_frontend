@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import {
   allCategories,
   allDepartments,
+  allRequests,
   allServices,
   citizenStats,
   createCheckoutSession,
@@ -13,6 +14,7 @@ import {
   getStaffStats,
   myRecentRequests,
   myRequests,
+  updateRequestStatus,
   uploadRequestImage,
 } from "@/api/requests";
 import { getErrorMessage } from "@/lib/getErrorMessage";
@@ -142,5 +144,21 @@ export function useRecentAssignedTasks() {
   return useQuery({
     queryKey: ["recent-assigned-tasks"],
     queryFn: getRecentAssignedTasks,
+  });
+}
+
+export function useAllRequests(query: QueryParams) {
+  return useQuery({
+    queryKey: ["all-requests", query],
+    queryFn: () => allRequests(query),
+  });
+}
+
+export function useUpdateRequestStatus() {
+  return useMutation({
+    mutationFn: updateRequestStatus,
+    onError: (error) => {
+      console.log(error);
+    },
   });
 }

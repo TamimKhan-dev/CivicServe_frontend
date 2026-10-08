@@ -1,28 +1,25 @@
 "use client";
 
-import { useCategories, useMyRequests } from "@/hooks/useRequests";
+import { useAllRequests, useCategories } from "@/hooks/useRequests";
 import { useUrlFilters } from "@/hooks/useUrlFilters";
 import type { Category } from "@/types/requests-types";
+import { REQUEST_URL_DEFAULTS } from "../../citizen/my-requests/request-data";
+import { RequestFiltersSkeleton } from "../../citizen/my-requests/request-filter-skeleton";
+import {
+  RequestFilters,
+  type RequestFilterValues,
+} from "../../citizen/my-requests/requests-filters";
 import { RequestRowActions } from "../../common/request-table/request-row-actions";
 import RequestTable from "../../common/request-table/request-table";
-import { RequestFiltersSkeleton } from "./request-filter-skeleton";
-import { RequestFilters, type RequestFilterValues } from "./requests-filters";
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 6;
 
-export const REQUEST_URL_DEFAULTS = {
-  searchTerm: "",
-  status: "",
-  categoryId: "",
-  sortOrder: "desc",
-  page: "1",
-};
-
-export default function RequestData() {
+export default function AssignedRequest() {
   const { values, setParams, searchText, setSearchText } = useUrlFilters(
     REQUEST_URL_DEFAULTS,
     "searchTerm",
   );
+
   const page = Math.max(1, Number(values.page) || 1);
 
   const filters: RequestFilterValues = {
@@ -38,7 +35,7 @@ export default function RequestData() {
     .filter((c) => c.isActive)
     .map((c) => ({ value: c.id, label: c.name }));
 
-  const { data, isPending: isRequestPending } = useMyRequests({
+  const { data, isPending: isRequestPending } = useAllRequests({
     page,
     limit: PAGE_SIZE,
     searchTerm: values.searchTerm || undefined,
@@ -68,7 +65,6 @@ export default function RequestData() {
       });
     }
   };
-
   return (
     <>
       {/* Request filters bar */}
@@ -82,7 +78,6 @@ export default function RequestData() {
         />
       )}
 
-      {/* All requests */}
       <RequestTable
         requests={requests}
         isPending={isRequestPending}
@@ -94,8 +89,8 @@ export default function RequestData() {
         renderActions={(r) => (
           <RequestRowActions
             request={r}
-            userRole="CITIZEN"
-            detailsHref={`/citizen/requests/${r.id}`}
+            userRole="STAFF"
+            detailsHref={`/staff/requests/${r.id}`}
           />
         )}
       />

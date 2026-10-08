@@ -77,7 +77,7 @@ export const NAV_BY_ROLE: Record<UserRole, NavGroup[]> = {
         },
         {
           label: "Assigned Queue",
-          href: "/staff/assigned-queue",
+          href: "/staff/assigned-requests",
           icon: Inbox,
         },
       ],

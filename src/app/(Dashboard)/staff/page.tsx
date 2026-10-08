@@ -1,10 +1,15 @@
 import { ArrowRight } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import WelcomeHeading from "../_components/citizen/overview/welcome-heading";
 import { StaffRecentRequests } from "../_components/staff/overview/staff-recent-assigned";
 import { StaffStats } from "../_components/staff/overview/staff-stats";
+
+export const metadata: Metadata = {
+  title: "Staff Overview | CivicServe",
+};
 
 export default function StaffDashboard() {
   return (

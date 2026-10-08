@@ -46,7 +46,7 @@ export function DashboardHeader({
 
   const crumbs = segments.map((seg, i) => ({
     label: humanize(seg),
-    href: "/" + segments.slice(0, i + 1).join("/"),
+    href: `/${segments.slice(0, i + 1).join("/")}`,
   }));
 
   if (segments.length === 1) {

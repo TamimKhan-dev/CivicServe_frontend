@@ -47,8 +47,6 @@ export function TablePagination({
   pageSize,
   className,
 }: TablePaginationProps) {
-  if (totalPages <= 1) return null;
-
   const showSummary = totalItems !== undefined && pageSize !== undefined;
   const from = showSummary ? (page - 1) * pageSize + 1 : 0;
   const to = showSummary ? Math.min(page * pageSize, totalItems) : 0;

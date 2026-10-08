@@ -86,3 +86,28 @@ export function getStaffStats() {
 export function getRecentAssignedTasks() {
   return apiClient(`/api/v1/request/all-requests?sortOrder=desc&limit=3`);
 }
+
+export function allRequests(query: QueryParams) {
+  const params = new URLSearchParams();
+
+  Object.entries(query).forEach(([key, value]) => {
+    if (value !== undefined && value !== "") {
+      params.append(key, String(value));
+    }
+  });
+
+  return apiClient(`/api/v1/request/all-requests?${params.toString()}`);
+}
+
+export function updateRequestStatus({
+  requestId,
+  status,
+}: {
+  requestId: string;
+  status: string;
+}) {
+  return apiClient(`/api/v1/request/${requestId}/status`, {
+    method: "PATCH",
+    body: { status },
+  });
+}
