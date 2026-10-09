@@ -31,10 +31,12 @@ export type NavGroup = {
   items: NavItem[];
 };
 
-const account: NavGroup = {
+const getAccount = (base: string): NavGroup => ({
   label: "Account",
-  items: [{ label: "Profile & Settings", href: "#", icon: Settings }],
-};
+  items: [
+    { label: "Profile & Settings", href: `${base}/profile`, icon: Settings },
+  ],
+});
 
 export const NAV_BY_ROLE: Record<UserRole, NavGroup[]> = {
   CITIZEN: [
@@ -64,7 +66,7 @@ export const NAV_BY_ROLE: Record<UserRole, NavGroup[]> = {
         { label: "Payments", href: "/citizen/payments", icon: Banknote },
       ],
     },
-    account,
+    getAccount("/citizen"),
   ],
   STAFF: [
     {
@@ -82,7 +84,7 @@ export const NAV_BY_ROLE: Record<UserRole, NavGroup[]> = {
         },
       ],
     },
-    account,
+    getAccount("/staff"),
   ],
   ADMIN: [
     {
@@ -110,7 +112,7 @@ export const NAV_BY_ROLE: Record<UserRole, NavGroup[]> = {
         },
       ],
     },
-    account,
+    getAccount("/admin"),
   ],
 };
 
