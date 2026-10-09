@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { RecentRequests } from "../_components/citizen/overview/citizen-recent-requests";
+import { CitizenRecentRequests } from "../_components/citizen/overview/citizen-recent-requests";
 import CitizenStats from "../_components/citizen/overview/citizen-stats";
 import WelcomeHeading from "../_components/citizen/overview/welcome-heading";
 
@@ -51,7 +51,7 @@ export default function CitizenOverviewPage() {
       <CitizenStats />
 
       {/* Recent requests */}
-      <RecentRequests />
+      <CitizenRecentRequests />
     </div>
   );
 }

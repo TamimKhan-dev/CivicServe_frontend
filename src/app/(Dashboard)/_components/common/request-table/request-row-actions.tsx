@@ -6,7 +6,8 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCreatePayment, useUpdateRequestStatus } from "@/hooks/useRequests";
 import type { UserRole } from "@/types";
-import { needsPayment } from "./helper";
+import { AssignStaffDialog } from "../../admin/all-requests/assign-staff-dialog";
+import { canAssignStaff, needsPayment } from "./helper";
 import type { RequestItem } from "./request-table-types";
 
 type Props = {
@@ -31,6 +32,9 @@ export function RequestRowActions({ request, userRole, detailsHref }: Props) {
 
   return (
     <div className="flex items-center gap-4">
+      {userRole === "ADMIN" && canAssignStaff(request) && (
+        <AssignStaffDialog requestId={request.id} />
+      )}
       {staffAction && (
         <Button
           size="sm"
@@ -40,7 +44,11 @@ export function RequestRowActions({ request, userRole, detailsHref }: Props) {
               { requestId: request.id, status: staffAction.next },
               {
                 onSuccess: () => {
-                  toast.success(`Request is ${staffAction.next}`);
+                  toast.success(
+                    staffAction.next === "RESOLVED"
+                      ? "Request resolved"
+                      : "Work started",
+                  );
                 },
               },
             )

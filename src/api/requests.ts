@@ -119,3 +119,14 @@ export function updateRequestStatus({
 export function adminStats() {
   return apiClient(`/api/v1/request/admin-stats`);
 }
+
+export function fetchAllStaffs() {
+  return apiClient("/api/v1/user/staffs");
+}
+
+export function assignStaff(payload: { requestId: string; staffId: string }) {
+  return apiClient(`/api/v1/request/${payload.requestId}/assign`, {
+    method: "PATCH",
+    body: { staffId: payload.staffId },
+  });
+}

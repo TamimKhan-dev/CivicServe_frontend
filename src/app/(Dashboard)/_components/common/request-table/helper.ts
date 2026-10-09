@@ -7,3 +7,6 @@ export const needsPayment = (r: RequestItem) =>
   r.status !== "REJECTED" &&
   r.payment?.status !== "PAID" &&
   r.payment?.status !== "REFUNDED";
+
+export const canAssignStaff = (r: RequestItem) =>
+  r.status === "SUBMITTED" && (!isService(r) || r.payment?.status === "PAID");

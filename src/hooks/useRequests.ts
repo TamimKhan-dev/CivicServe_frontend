@@ -7,9 +7,11 @@ import {
   allDepartments,
   allRequests,
   allServices,
+  assignStaff,
   citizenStats,
   createCheckoutSession,
   createRequest,
+  fetchAllStaffs,
   getPaymentDetails,
   getRecentAssignedTasks,
   getSingleRequest,
@@ -181,5 +183,28 @@ export function useAdminRecentRequests() {
   return useQuery({
     queryKey: ["admin-recent-requests"],
     queryFn: adminRecentRequests,
+  });
+}
+
+export function useStaffList(options?: { enabled?: boolean }) {
+  return useQuery({
+    queryKey: ["all-staffs"],
+    queryFn: fetchAllStaffs,
+    enabled: options?.enabled,
+  });
+}
+
+export function useAssignStaff() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: assignStaff,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["all-requests"] });
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error));
+      console.log(error);
+    },
   });
 }

@@ -2,16 +2,24 @@
 
 import { Check, Copy, CreditCard } from "lucide-react";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 
 export type PaymentReceipt = {
+  id: string;
   amount: string;
-  currency: string;
-  status: "PAID" | "PENDING";
-  requestId: string;
-  service: string;
-  method: string;
+  createdAt: string;
   paidAt: string;
+  paymentMethod: string;
+  request: {
+    service: {
+      name: string;
+    };
+  };
+  requestId: string;
+  status: "PAID" | "PENDING";
+  transactionId: string;
+  updatedAt: string;
+  userId: string;
 };
 
 const STATUS_STYLES = {
@@ -81,6 +89,7 @@ export function PaymentReceiptDetails({
   receipt: PaymentReceipt;
 }) {
   const status = STATUS_STYLES[receipt.status];
+  console.log(receipt);
 
   return (
     <div className="rounded-xl bg-indigo-50/70 p-5">
@@ -94,7 +103,7 @@ export function PaymentReceiptDetails({
             {receipt.amount}
           </span>
           <span className="text-[10px] font-semibold text-slate-500">
-            {receipt.currency}
+            {receipt.amount}
           </span>
         </span>
       </div>
@@ -117,19 +126,21 @@ export function PaymentReceiptDetails({
         </ReceiptRow>
 
         <ReceiptRow label="Request ID">
-          <span className="font-mono text-xs">{receipt.requestId}</span>
+          <span className="font-mono text-xs max-w-25 truncate">
+            {receipt.requestId}
+          </span>
           <CopyIdButton value={receipt.requestId} />
         </ReceiptRow>
 
-        <ReceiptRow label="Service">{receipt.service}</ReceiptRow>
+        <ReceiptRow label="Service">{receipt.request.service.name}</ReceiptRow>
 
         <ReceiptRow label="Payment Method">
           <CreditCard className="size-4 shrink-0 text-slate-600" aria-hidden />
-          {receipt.method}
+          {receipt.paymentMethod}
         </ReceiptRow>
 
         <ReceiptRow label="Timestamp">
-          <span className="font-medium">{receipt.paidAt}</span>
+          <span className="font-medium">{formatDate(receipt.paidAt)}</span>
         </ReceiptRow>
       </dl>
     </div>
