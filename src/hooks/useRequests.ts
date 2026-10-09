@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
+  adminRecentRequests,
+  adminStats,
   allCategories,
   allDepartments,
   allRequests,
@@ -155,10 +157,29 @@ export function useAllRequests(query: QueryParams) {
 }
 
 export function useUpdateRequestStatus() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: updateRequestStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["all-requests"] });
+    },
     onError: (error) => {
       console.log(error);
     },
+  });
+}
+
+export function useAdminStats() {
+  return useQuery({
+    queryKey: ["admin-stats"],
+    queryFn: adminStats,
+  });
+}
+
+export function useAdminRecentRequests() {
+  return useQuery({
+    queryKey: ["admin-recent-requests"],
+    queryFn: adminRecentRequests,
   });
 }

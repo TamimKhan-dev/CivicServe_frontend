@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { RecentRequests } from "../_components/citizen/overview/citizen-recent-requests";
 import CitizenStats from "../_components/citizen/overview/citizen-stats";
-import { RecentRequests } from "../_components/citizen/overview/recent-requests";
 import WelcomeHeading from "../_components/citizen/overview/welcome-heading";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { TableCell, TableRow } from "@/components/ui/table";
 
-const ROW_COUNT = 3;
+const ROW_COUNT = 4;
 
 export function RequestRowsSkeleton({ count = ROW_COUNT }: { count?: number }) {
   return (

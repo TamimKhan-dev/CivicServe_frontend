@@ -10,8 +10,16 @@ import type {
 
 export function myRecentRequests() {
   return apiClient(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/request/my-requests?sortOrder=desc&limit=3`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/request/my-requests?sortOrder=desc&limit=4`,
   );
+}
+
+export function adminRecentRequests() {
+  return apiClient(`/api/v1/request/all-requests?sortOrder=desc&limit=4`);
+}
+
+export function getRecentAssignedTasks() {
+  return apiClient(`/api/v1/request/all-requests?sortOrder=desc&limit=4`);
 }
 
 export function citizenStats() {
@@ -83,10 +91,6 @@ export function getStaffStats() {
   return apiClient(`/api/v1/request/staff-stats`);
 }
 
-export function getRecentAssignedTasks() {
-  return apiClient(`/api/v1/request/all-requests?sortOrder=desc&limit=3`);
-}
-
 export function allRequests(query: QueryParams) {
   const params = new URLSearchParams();
 
@@ -110,4 +114,8 @@ export function updateRequestStatus({
     method: "PATCH",
     body: { status },
   });
+}
+
+export function adminStats() {
+  return apiClient(`/api/v1/request/admin-stats`);
 }

@@ -118,3 +118,10 @@ export type CreateRequestPayload = {
 export type CreateRequestResponse = {
   data: { id: string };
 };
+
+export type AdminStats = {
+  totalRequests: number;
+  pendingRequests: number;
+  inProgress: number;
+  totalUsers: number;
+};

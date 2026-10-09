@@ -2,6 +2,7 @@
 
 import { ArrowRight, CreditCard, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCreatePayment, useUpdateRequestStatus } from "@/hooks/useRequests";
 import type { UserRole } from "@/types";
@@ -35,7 +36,14 @@ export function RequestRowActions({ request, userRole, detailsHref }: Props) {
           size="sm"
           disabled={isUpdating}
           onClick={() =>
-            updateStatus({ requestId: request.id, status: staffAction.next })
+            updateStatus(
+              { requestId: request.id, status: staffAction.next },
+              {
+                onSuccess: () => {
+                  toast.success(`Request is ${staffAction.next}`);
+                },
+              },
+            )
           }
           className="h-8 bg-blue-600 px-3 text-xs font-semibold hover:bg-blue-700"
         >
