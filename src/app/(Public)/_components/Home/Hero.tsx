@@ -45,7 +45,7 @@ export function Hero() {
               size="lg"
               className="bg-blue-600 font-semibold hover:bg-blue-700"
             >
-              <Link href="/requests/new">
+              <Link href="/citizen/create-request">
                 <PlusCircle className="size-4" aria-hidden />
                 Submit a Request
               </Link>

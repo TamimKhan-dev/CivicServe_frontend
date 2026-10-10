@@ -92,7 +92,7 @@ export function Navbar() {
             asChild
             className="hidden bg-blue-600 hover:bg-blue-700 sm:inline-flex"
           >
-            <Link href="/requests/new">
+            <Link href="/citizen/create-request">
               <PlusCircle className="size-4" />
               Submit Request
             </Link>
@@ -196,7 +196,7 @@ export function Navbar() {
                 )}
                 <SheetClose asChild>
                   <Button asChild className="bg-blue-600 hover:bg-blue-700">
-                    <Link href="/requests/new">
+                    <Link href="/citizen/create-request">
                       <PlusCircle className="size-4" />
                       Submit Request
                     </Link>

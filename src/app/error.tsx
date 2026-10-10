@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, RotateCw } from "lucide-react";
+import { AlertTriangle, Home, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -13,44 +13,49 @@ export default function ErrorPage({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error(error);
+    console.error("Application error:", error);
   }, [error]);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#f8f9ff] px-4 py-10">
-      <div className="w-full max-w-105 bg-white rounded-2xl border border-[#e5eeff] shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] p-8 text-center">
-        <div className="w-20 h-20 rounded-full bg-[#ffdad6] flex items-center justify-center mx-auto mb-6">
-          <div className="w-12 h-12 rounded-full bg-[#ba1a1a] flex items-center justify-center">
-            <AlertTriangle size={22} className="text-white" fill="none" />
-          </div>
+    <main className="flex min-h-[70vh] items-center justify-center bg-slate-50 px-6 py-16">
+      <div className="w-full max-w-lg text-center">
+        <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-red-100 text-red-600">
+          <AlertTriangle size={32} />
         </div>
 
-        <h1 className="font-bold text-2xl md:text-3xl text-[#0b1c30] mb-3">
-          Something Went Wrong
-        </h1>
-        <p className="text-sm text-[#515f74] leading-relaxed mb-7">
-          We couldn&apos;t load this page right now. Please try again.
+        <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-red-600">
+          Something went wrong
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 mb-6">
-          <Button
-            onClick={() => reset()}
-            className="flex-1 min-w-0 bg-[#006c49] hover:bg-[#006c49]/90 text-white font-semibold h-auto py-3 rounded-xl gap-2 cursor-pointer"
-          >
-            <RotateCw size={16} className="shrink-0" />
-            Try Again
-          </Button>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          We couldn&apos;t load this page
+        </h1>
+
+        <p className="mx-auto mt-4 max-w-md text-slate-600">
+          An unexpected error occurred. Please try again. If the problem
+          continues, return home and try later.
+        </p>
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Button
             asChild
-            variant="outline"
-            className="flex-1 min-w-0 border-[#bbcabf] text-[#0b1c30] font-semibold h-auto py-3 rounded-xl cursor-pointer"
+            className="gap-2 bg-blue-600 text-white hover:bg-blue-700"
           >
-            <Link href="/">Back to Home</Link>
+            <Link href="/">
+              <Home size={16} />
+              Return Home
+            </Link>
+          </Button>
+
+          <Button
+            onClick={() => reset()}
+            className="gap-2 bg-blue-600 text-white hover:bg-blue-700"
+          >
+            <RefreshCw size={16} />
+            Try Again
           </Button>
         </div>
-
-        <p className="text-xs text-[#94a3b8]">Error {error.digest ?? "500"}</p>
       </div>
-    </div>
+    </main>
   );
 }

@@ -50,6 +50,7 @@ export function useGetMe() {
     queryFn: getMe,
     retry: false,
     staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: (query) => query.state.data !== undefined,
   });
 }
 
