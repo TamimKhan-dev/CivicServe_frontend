@@ -31,7 +31,7 @@ import { Skeleton } from "../ui/skeleton";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "How It Works", href: "/about" },
+  { label: "About Us", href: "/about" },
   { label: "Live Tracking", href: "/tracking" },
   { label: "Contact", href: "/contact" },
 ];

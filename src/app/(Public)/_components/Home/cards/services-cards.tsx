@@ -19,7 +19,7 @@ export type ServiceCardProps = {
   noteTextClass?: string;
 };
 
-export function ServiceCard({
+export function HomeServiceCard({
   href,
   icon: Icon,
   title,

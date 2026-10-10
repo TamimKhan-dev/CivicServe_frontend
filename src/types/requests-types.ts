@@ -103,6 +103,7 @@ export type Service = {
   slaHours: number;
   isActive: boolean;
   departmentId: string;
+  department: { id: string; name: string };
 };
 
 export type CreateRequestPayload = {

@@ -5,7 +5,6 @@ import {
 } from "./cards/ticket-timeline-card";
 import { TicketSearch } from "./other/ticket-search";
 
-// Demo data.
 const DEMO_TICKET: TrackedTicket = {
   id: "#CV-84912",
   priority: "High Priority",

@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ServiceCard, type ServiceCardProps } from "./cards/services-cards";
+import { HomeServiceCard, type ServiceCardProps } from "./cards/services-cards";
 
 // Temporary dummy Data
 const SERVICES: ServiceCardProps[] = [
@@ -125,7 +125,7 @@ export function PopularServices() {
 
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service) => (
-            <ServiceCard key={service.href} {...service} />
+            <HomeServiceCard key={service.href} {...service} />
           ))}
         </div>
 
