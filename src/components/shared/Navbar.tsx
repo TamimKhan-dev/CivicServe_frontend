@@ -45,6 +45,8 @@ export function Navbar() {
   const user = data?.data ?? null;
   const role: UserRole = !!user && user.role;
 
+  console.log(data);
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 

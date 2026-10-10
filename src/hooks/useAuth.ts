@@ -1,7 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { getMe, logout, registerUser, userLogin, verifyOtp } from "@/api/auth";
+import {
+  getMe,
+  logout,
+  registerUser,
+  updateUserProfile,
+  userLogin,
+  verifyOtp,
+} from "@/api/auth";
 import { getErrorMessage } from "@/lib/getErrorMessage";
 
 export function useLogin() {
@@ -60,5 +67,18 @@ export function useLogout() {
     onError: (error) => {
       toast.error(getErrorMessage(error));
     },
+  });
+}
+
+export function useUpdateProfile() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateUserProfile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["me"] });
+      toast.success("Profile updated");
+    },
+    onError: (error) => toast.error(getErrorMessage(error)),
   });
 }

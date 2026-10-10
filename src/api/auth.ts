@@ -1,6 +1,7 @@
 import apiClient from "@/lib/apiClient";
 import type {
   OtpVerificationPayload,
+  UpdateProfilePayload,
   UserLoginPayload,
   UserRegisterPayload,
 } from "@/types";
@@ -37,4 +38,22 @@ export function logout() {
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/auth/logout`,
     { method: "POST" },
   );
+}
+
+export function updateUserProfile({
+  userId,
+  name,
+  phone,
+  image,
+}: UpdateProfilePayload) {
+  const formData = new FormData();
+
+  if (name) formData.append("name", name);
+  if (phone !== undefined) formData.append("phone", phone);
+  if (image) formData.append("image", image);
+
+  return apiClient(`/api/v1/user/update-user/${userId}`, {
+    method: "PATCH",
+    body: formData,
+  });
 }

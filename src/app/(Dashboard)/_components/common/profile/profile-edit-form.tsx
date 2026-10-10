@@ -4,13 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { ProfileData } from "./dummy-profile";
+import { useUpdateProfile } from "@/hooks/useAuth";
+import type { ProfileData } from "@/types";
 import { type ProfileFormValues, profileSchema } from "./profile-schema";
 
 type Props = {
@@ -22,13 +22,14 @@ type Props = {
 export function ProfileEditForm({ profile, onCancel, onSaved }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const { mutate: updateProfile, isPending } = useUpdateProfile();
 
   const {
     register,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isDirty, isSubmitting },
+    formState: { errors, isDirty },
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: { name: profile.name, phone: profile.phone ?? "" },
@@ -45,11 +46,16 @@ export function ProfileEditForm({ profile, onCancel, onSaved }: Props) {
     return () => URL.revokeObjectURL(url);
   }, [image]);
 
-  const onSubmit = async (values: ProfileFormValues) => {
-    console.log(values);
-    await new Promise((r) => setTimeout(r, 800));
-    toast.success("Profile updated");
-    onSaved();
+  const onSubmit = (values: ProfileFormValues) => {
+    updateProfile(
+      {
+        userId: profile.id,
+        name: values.name,
+        phone: values.phone,
+        image: values.image,
+      },
+      { onSuccess: onSaved },
+    );
   };
 
   return (
@@ -123,16 +129,16 @@ export function ProfileEditForm({ profile, onCancel, onSaved }: Props) {
             type="button"
             variant="outline"
             onClick={onCancel}
-            disabled={isSubmitting}
+            disabled={isPending}
           >
             Cancel
           </Button>
           <Button
             type="submit"
-            disabled={!isDirty || isSubmitting}
+            disabled={!isDirty || isPending}
             className="bg-blue-600 font-semibold hover:bg-blue-700"
           >
-            {isSubmitting && (
+            {isPending && (
               <Loader2 className="size-4 animate-spin" aria-hidden />
             )}
             Save Changes

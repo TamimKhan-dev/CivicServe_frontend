@@ -1,7 +1,7 @@
 import { CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { cn, formatDate } from "@/lib/utils";
-import type { ProfileData } from "./dummy-profile";
+import type { ProfileData } from "@/types";
 
 function Field({
   label,
@@ -103,7 +103,7 @@ export function ProfileDetails({ profile }: { profile: ProfileData }) {
 
       <Section title="Additional Information" hint="System audit metadata">
         <Field label="Last Updated">{formatDate(updatedAt)}</Field>
-        {department && <Field label="Department">{department}</Field>}
+        {department && <Field label="Department">{department?.name}</Field>}
       </Section>
     </Card>
   );
