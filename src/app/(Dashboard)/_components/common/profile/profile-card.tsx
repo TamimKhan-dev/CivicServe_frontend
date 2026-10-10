@@ -1,10 +1,9 @@
-// common/profile/profile-card.tsx
 import { Calendar, Pencil } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
-import type { ProfileData } from "./dummy-profile";
+import type { ProfileData } from "@/types";
 
 type Props = {
   profile: ProfileData;

@@ -1,10 +1,9 @@
-// profile-page.tsx
 "use client";
 
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetMe } from "@/hooks/useAuth";
-import type { ProfileData } from "./dummy-profile";
+import type { ProfileData } from "@/types";
 import { ProfileCard } from "./profile-card";
 import { ProfileDetails } from "./profile-details";
 import { ProfileEditForm } from "./profile-edit-form";

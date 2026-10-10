@@ -45,8 +45,6 @@ export function Navbar() {
   const user = data?.data ?? null;
   const role: UserRole = !!user && user.role;
 
-  console.log(data);
-
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -121,7 +119,7 @@ export function Navbar() {
                   </p>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="cursor-pointer">
                   {role && (
                     <Link href={dashboardRoute[role]}>
                       <LayoutDashboard className="size-4" />
@@ -129,11 +127,13 @@ export function Navbar() {
                     </Link>
                   )}
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/profile">
-                    <User className="size-4" />
-                    Profile
-                  </Link>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  {role && (
+                    <Link href={`${dashboardRoute[role]}/profile`}>
+                      <User className="size-4" />
+                      Profile
+                    </Link>
+                  )}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
