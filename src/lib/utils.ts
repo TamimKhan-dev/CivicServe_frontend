@@ -1,3 +1,5 @@
+import { format, formatDistanceToNow } from "date-fns";
+
 export { cn } from "cn";
 
 export function getInitials(name: string) {
@@ -27,4 +29,19 @@ export function formatDate(iso: string): string {
     day: "2-digit",
     year: "numeric",
   });
+}
+
+export const formatDateTime = (date: string | Date) => {
+  return format(new Date(date), "MMMM d, yyyy 'at' h:mm a");
+};
+
+export function timeAgo(date: string | Date) {
+  const parsedDate = new Date(date);
+
+  const diffInSeconds = Math.abs((parsedDate.getTime() - Date.now()) / 1000);
+  if (diffInSeconds < 60) {
+    return "just now";
+  }
+
+  return formatDistanceToNow(parsedDate, { addSuffix: true });
 }

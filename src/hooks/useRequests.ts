@@ -2,20 +2,17 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
   adminRecentRequests,
-  adminStats,
   allCategories,
   allDepartments,
   allRequests,
   allServices,
   assignStaff,
-  citizenStats,
   createCheckoutSession,
   createRequest,
   fetchAllStaffs,
   getPaymentDetails,
   getRecentAssignedTasks,
   getSingleRequest,
-  getStaffStats,
   myRecentRequests,
   myRequests,
   updateRequestStatus,
@@ -30,20 +27,6 @@ export function useMyRecentRequests() {
   return useQuery({
     queryKey: ["my-recent-requests"],
     queryFn: myRecentRequests,
-  });
-}
-
-export function useCitizenStats() {
-  return useQuery({
-    queryKey: ["citizen-stats"],
-    queryFn: citizenStats,
-  });
-}
-
-export function useStaffStats() {
-  return useQuery({
-    queryKey: ["staff-stats"],
-    queryFn: getStaffStats,
   });
 }
 
@@ -169,13 +152,6 @@ export function useUpdateRequestStatus() {
     onError: (error) => {
       console.log(error);
     },
-  });
-}
-
-export function useAdminStats() {
-  return useQuery({
-    queryKey: ["admin-stats"],
-    queryFn: adminStats,
   });
 }
 

@@ -9,9 +9,7 @@ import type {
 } from "@/types/requests-types";
 
 export function myRecentRequests() {
-  return apiClient(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/request/my-requests?sortOrder=desc&limit=4`,
-  );
+  return apiClient(`/api/v1/request/my-requests?sortOrder=desc&limit=4`);
 }
 
 export function adminRecentRequests() {
@@ -22,16 +20,8 @@ export function getRecentAssignedTasks() {
   return apiClient(`/api/v1/request/all-requests?sortOrder=desc&limit=4`);
 }
 
-export function citizenStats() {
-  return apiClient(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/request/citizen-stat`,
-  );
-}
-
 export function allCategories() {
-  return apiClient(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/category/all-categories`,
-  );
+  return apiClient(`/api/v1/category/all-categories`);
 }
 
 export function myRequests(query: QueryParams) {
@@ -43,9 +33,7 @@ export function myRequests(query: QueryParams) {
     }
   });
 
-  return apiClient(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/request/my-requests?${params.toString()}`,
-  );
+  return apiClient(`/api/v1/request/my-requests?${params.toString()}`);
 }
 
 export function allDepartments() {
@@ -87,10 +75,6 @@ export function getSingleRequest(requestId: string) {
   return apiClient(`/api/v1/request/${requestId}`);
 }
 
-export function getStaffStats() {
-  return apiClient(`/api/v1/request/staff-stats`);
-}
-
 export function allRequests(query: QueryParams) {
   const params = new URLSearchParams();
 
@@ -114,10 +98,6 @@ export function updateRequestStatus({
     method: "PATCH",
     body: { status },
   });
-}
-
-export function adminStats() {
-  return apiClient(`/api/v1/request/admin-stats`);
 }
 
 export function fetchAllStaffs() {

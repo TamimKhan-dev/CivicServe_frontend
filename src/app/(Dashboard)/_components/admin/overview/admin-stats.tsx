@@ -1,7 +1,7 @@
 "use client";
 
 import { ClipboardList, Clock, RefreshCw, Users } from "lucide-react";
-import { useAdminStats } from "@/hooks/useRequests";
+import { useAdminStats } from "@/hooks/useStats";
 import type { StatItem } from "../../common/stats/stats-card";
 import { StatsGrid } from "../../common/stats/stats-grid";
 

@@ -60,7 +60,6 @@ export function FeaturedServices() {
         >
           {isPending
             ? Array.from({ length: FEATURED_COUNT }, (_, i) => (
-                // biome-ignore lint/suspicious/noArrayIndexKey: static placeholders
                 <li key={i}>
                   <ServiceCardSkeleton />
                 </li>

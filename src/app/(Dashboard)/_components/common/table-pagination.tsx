@@ -1,16 +1,13 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type TablePaginationProps = {
-  /** Current page, starting at 1 */
   page: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  /** Optional: enables the "Showing 11–20 of 45" summary */
   totalItems?: number;
   pageSize?: number;
   className?: string;
@@ -19,7 +16,6 @@ type TablePaginationProps = {
 const range = (from: number, to: number) =>
   Array.from({ length: to - from + 1 }, (_, i) => from + i);
 
-/** Builds [1, "…", 4, 5, 6, "…", 10] style page lists. */
 function getPageRange(page: number, total: number, siblings = 1) {
   const maxVisible = siblings * 2 + 5;
   if (total <= maxVisible) return range(1, total);

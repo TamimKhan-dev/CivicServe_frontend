@@ -15,8 +15,8 @@ import {
   RequestRowsSkeleton,
 } from "../../citizen/overview/recent-requests-skeleton";
 import { StatusBadge } from "../../citizen/overview/status-badge";
-import { TablePagination } from "../TablePagination";
 import { EmptyState } from "../table-empty-state";
+import { TablePagination } from "../table-pagination";
 import { isService } from "./helper";
 import type { RequestTableProps } from "./request-table-types";
 import { TypeTag } from "./type-tag";

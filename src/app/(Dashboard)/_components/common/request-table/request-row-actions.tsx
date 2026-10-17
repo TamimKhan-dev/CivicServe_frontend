@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "cn";
 import { ArrowRight, CreditCard, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -13,10 +14,16 @@ import type { RequestItem } from "./request-table-types";
 type Props = {
   request: RequestItem;
   userRole: UserRole;
-  detailsHref: string;
+  detailsHref?: string;
+  className?: string;
 };
 
-export function RequestRowActions({ request, userRole, detailsHref }: Props) {
+export function RequestRowActions({
+  request,
+  userRole,
+  detailsHref,
+  className,
+}: Props) {
   const { mutate: pay, isPending: isPaying } = useCreatePayment();
   const { mutate: updateStatus, isPending: isUpdating } =
     useUpdateRequestStatus();
@@ -31,7 +38,7 @@ export function RequestRowActions({ request, userRole, detailsHref }: Props) {
       : null;
 
   return (
-    <div className="flex items-center gap-4">
+    <div className={cn("flex items-center gap-4", className)}>
       {userRole === "ADMIN" && canAssignStaff(request) && (
         <AssignStaffDialog requestId={request.id} />
       )}
@@ -78,13 +85,15 @@ export function RequestRowActions({ request, userRole, detailsHref }: Props) {
         </Button>
       )}
 
-      <Link
-        href={detailsHref}
-        className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700"
-      >
-        View Details
-        <ArrowRight className="size-3.5" aria-hidden />
-      </Link>
+      {detailsHref && (
+        <Link
+          href={detailsHref}
+          className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700"
+        >
+          View Details
+          <ArrowRight className="size-3.5" aria-hidden />
+        </Link>
+      )}
     </div>
   );
 }

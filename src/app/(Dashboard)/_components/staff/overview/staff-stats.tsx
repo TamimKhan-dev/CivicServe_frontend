@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle2, ClipboardList, Clock, RefreshCw } from "lucide-react";
-import { useStaffStats } from "@/hooks/useRequests";
+import { useStaffStats } from "@/hooks/useStats";
 import type { StatItem } from "../../common/stats/stats-card";
 import { StatsGrid } from "../../common/stats/stats-grid";
 
