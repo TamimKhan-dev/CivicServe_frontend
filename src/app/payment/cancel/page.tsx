@@ -27,8 +27,6 @@ export default function PaymentCancel() {
   const { data, isPending } = useSingleRequest(requestId as string);
   const payment = data?.data ?? {};
 
-  console.log(payment);
-
   return (
     <main className="flex min-h-dvh items-center justify-center bg-slate-50 p-4 sm:p-6">
       {isPending ? (

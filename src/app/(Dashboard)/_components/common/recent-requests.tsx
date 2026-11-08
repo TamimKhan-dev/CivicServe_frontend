@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatDate } from "@/lib/utils";
-import type { Requests } from "@/types/requests-types";
+import type { RequestDetails } from "@/types/requests-types";
 import {
   RequestListSkeleton,
   RequestRowsSkeleton,
@@ -22,9 +22,9 @@ type Props = {
   title?: string;
   description: string;
   viewAllHref: string;
-  requests: Requests[];
+  requests: RequestDetails[];
   isPending: boolean;
-  getDetailsHref: (request: Requests) => string;
+  getDetailsHref: (request: RequestDetails) => string;
   showStaffInfo?: boolean;
 };
 

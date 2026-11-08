@@ -14,36 +14,81 @@ export type RequestStatus =
   | "RESOLVED"
   | "REJECTED";
 
-export type Requests = {
+// export type Requests = {
+//   id: string;
+//   title: string;
+//   description: string;
+//   location: string;
+//   status: RequestStatus;
+//   type: RequestType;
+//   imageUrl: string | null;
+//   imagePublicId: string | null;
+//   categoryId: string;
+//   category: {
+//     id: string;
+//     name: string;
+//   };
+//   serviceId: string;
+//   service: {
+//     id: string;
+//     name: string;
+//     fee: string;
+//   };
+//   departmentId: string;
+//   department: {
+//     id: string;
+//     name: string;
+//   };
+//   assignedStaffId: string | null;
+//   createdAt: string;
+//   updatedAt: string;
+//   deletedAt: string | null;
+//   userId: string;
+// };
+export type RequestPayment = {
+  id: string;
+  requestId: string;
+  userId: string;
+  status: PaymentStatus;
+  amount: number | string;
+  paymentMethod: string | null;
+  transactionId: string | null;
+  paidAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type RequestDetails = {
   id: string;
   title: string;
   description: string;
-  location: string;
-  status: RequestStatus;
   type: RequestType;
+  status: RequestStatus;
+  location: string;
   imageUrl: string | null;
   imagePublicId: string | null;
+
+  userId: string;
   categoryId: string;
-  category: {
-    id: string;
-    name: string;
-  };
-  serviceId: string;
-  service: {
-    id: string;
-    name: string;
-    fee: string;
-  };
-  departmentId: string;
-  department: {
-    id: string;
-    name: string;
-  };
+  departmentId: string | null;
+  serviceId: string | null;
   assignedStaffId: string | null;
+
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
-  userId: string;
+
+  user: { name: string };
+  category: { name: string } | null;
+  department: { name: string } | null;
+  service: { name: string; fee: number | string } | null;
+  payment: RequestPayment | null;
+  assignedStaff: {
+    name: string;
+    email: string;
+    profileImage: string | null;
+    department: { name: string } | null;
+  } | null;
 };
 
 export type CitizenStatCards = {

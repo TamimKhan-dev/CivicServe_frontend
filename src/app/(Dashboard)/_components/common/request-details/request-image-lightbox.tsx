@@ -5,11 +5,10 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import type { RequestImage } from "./dummy-requests";
 
 type Props = {
-  images: RequestImage[];
-  index: number | null; // null = closed
+  images: string[];
+  index: number | null;
   onIndexChange: (index: number | null) => void;
 };
 
@@ -17,7 +16,6 @@ export function ImageLightbox({ images, index, onIndexChange }: Props) {
   const total = images.length;
   const current = index === null ? null : images[index];
 
-  // arrow keys switch photos
   useEffect(() => {
     if (index === null) return;
     const onKey = (e: KeyboardEvent) => {
@@ -39,8 +37,8 @@ export function ImageLightbox({ images, index, onIndexChange }: Props) {
           <div className="space-y-3">
             <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg bg-slate-100">
               <Image
-                src={current.url}
-                alt={current.caption ?? "Request photo"}
+                src={current}
+                alt={"Request photo"}
                 fill
                 unoptimized
                 sizes="896px"
@@ -49,7 +47,9 @@ export function ImageLightbox({ images, index, onIndexChange }: Props) {
             </div>
 
             <div className="flex items-center justify-between gap-4 px-2 pb-1">
-              <p className="text-sm text-slate-600">{current.caption}</p>
+              <p className="text-sm text-slate-600">
+                Here is the place image caption will be placed
+              </p>
               {total > 1 && (
                 <div className="flex items-center gap-2">
                   <Button

@@ -1,12 +1,12 @@
 "use client";
 
 import { useAdminRecentRequests } from "@/hooks/useRequests";
-import type { Requests } from "@/types/requests-types";
+import type { RequestDetails } from "@/types/requests-types";
 import { RecentRequestsCard } from "../../common/recent-requests";
 
 export function AdminRecentRequests() {
   const { data, isPending } = useAdminRecentRequests();
-  const requests: Requests[] = data?.data?.requests ?? [];
+  const requests: RequestDetails[] = data?.data?.requests ?? [];
 
   return (
     <RecentRequestsCard

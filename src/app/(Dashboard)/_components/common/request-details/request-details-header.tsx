@@ -1,12 +1,12 @@
 "use client";
 
-import { AlertCircle, ArrowLeft, Clock } from "lucide-react";
+import { ArrowLeft, Clock } from "lucide-react";
 import Link from "next/link";
 import { CopyIdButton } from "@/app/payment/_components/payment-receipt-details";
 import { formatDateTime, timeAgo } from "@/lib/utils";
 import type { UserRole } from "@/types";
+import type { RequestDetails } from "@/types/requests-types";
 import { StatusBadge } from "../../citizen/overview/status-badge";
-import type { RequestDetails } from "./dummy-requests";
 
 type Props = {
   request: RequestDetails;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function RequestHeader({ request, backHref }: Props) {
-  const { id, title, status, severity, createdAt, updatedAt } = request;
+  const { id, title, status, createdAt, updatedAt } = request;
 
   return (
     <header className="space-y-4">
@@ -37,12 +37,6 @@ export function RequestHeader({ request, backHref }: Props) {
               <CopyIdButton value={id} />
             </span>
             <StatusBadge status={status} />
-            {severity && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700">
-                <AlertCircle className="size-3.5" aria-hidden />
-                {severity} Severity
-              </span>
-            )}
           </div>
 
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">

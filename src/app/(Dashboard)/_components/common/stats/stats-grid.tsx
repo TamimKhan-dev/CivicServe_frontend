@@ -15,7 +15,6 @@ export function StatsGrid({
   label = "Statistics",
   className,
 }: StatsGridProps) {
-  console.log(stats);
 
   return (
     <section

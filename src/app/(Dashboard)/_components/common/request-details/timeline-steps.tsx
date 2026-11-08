@@ -1,5 +1,5 @@
 import { formatDateTime } from "@/lib/utils";
-import type { RequestDetails } from "./dummy-requests";
+import type { RequestDetails } from "@/types/requests-types";
 
 export type TimelineStep = {
   id: string;
@@ -24,8 +24,7 @@ export function getStageLabel(request: RequestDetails) {
 }
 
 export function buildTimelineSteps(request: RequestDetails): TimelineStep[] {
-  const { status, createdAt, updatedAt, citizen, assignedStaff, staffNote } =
-    request;
+  const { status, createdAt, updatedAt, assignedStaff, user } = request;
   const lastChange = formatDateTime(updatedAt);
 
   const submitted: TimelineStep = {
@@ -33,7 +32,7 @@ export function buildTimelineSteps(request: RequestDetails): TimelineStep[] {
     title: "Request Submitted",
     state: "DONE",
     tag: "LOGGED",
-    description: `${formatDateTime(createdAt)} • Filed by ${citizen.name}.`,
+    description: `${formatDateTime(createdAt)} • Filed by ${user.name}.`,
   };
 
   if (status === "REJECTED") {
@@ -45,7 +44,6 @@ export function buildTimelineSteps(request: RequestDetails): TimelineStep[] {
         state: "REJECTED",
         tag: "REJECTED",
         description: lastChange,
-        note: staffNote,
       },
     ];
   }
@@ -58,10 +56,8 @@ export function buildTimelineSteps(request: RequestDetails): TimelineStep[] {
     return "PENDING";
   };
 
-  // only the current step shows a date and the note
   const describe = (stepRank: number, text: string) =>
     stepRank === rank ? `${lastChange} • ${text}` : text;
-  const noteFor = (stepRank: number) => (stepRank === rank ? staffNote : null);
 
   const assignedState = stateFor(2);
   const startedState = stateFor(3);
@@ -83,7 +79,6 @@ export function buildTimelineSteps(request: RequestDetails): TimelineStep[] {
                 : "A staff member has been assigned.",
             )
           : "Waiting for an administrator to assign a staff member.",
-      note: noteFor(2),
     },
     {
       id: "started",
@@ -99,7 +94,6 @@ export function buildTimelineSteps(request: RequestDetails): TimelineStep[] {
         startedState === "PENDING"
           ? "Work has not started yet."
           : describe(3, "Field work has started on this request."),
-      note: noteFor(3),
     },
     {
       id: "resolved",
@@ -110,7 +104,6 @@ export function buildTimelineSteps(request: RequestDetails): TimelineStep[] {
         resolvedState === "DONE"
           ? describe(4, "The request has been resolved.")
           : "Waiting for the work to be completed.",
-      note: noteFor(4),
     },
   ];
 }

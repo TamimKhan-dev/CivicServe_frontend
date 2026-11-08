@@ -21,3 +21,8 @@ export function hasRoleAction(r: RequestItem, role: UserRole) {
     return r.status === "ASSIGNED" || r.status === "IN_PROGRESS";
   return canAssignStaff(r);
 }
+
+export const formatMoney = (amount: number | string) =>
+  new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(
+    Number(amount),
+  );

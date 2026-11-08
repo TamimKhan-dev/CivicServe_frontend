@@ -89,7 +89,6 @@ export function PaymentReceiptDetails({
   receipt: PaymentReceipt;
 }) {
   const status = STATUS_STYLES[receipt.status];
-  console.log(receipt);
 
   return (
     <div className="rounded-xl bg-indigo-50/70 p-5">

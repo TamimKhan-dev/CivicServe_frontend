@@ -1,36 +1,39 @@
 "use client";
 
 import { useGetMe } from "@/hooks/useAuth";
+import { useSingleRequest } from "@/hooks/useRequests";
 import type { UserRole } from "@/types";
-import { DUMMY_REQUEST } from "./dummy-requests";
+import { RequestAssignmentCard } from "./request-assigned-card";
 import { RequestStatusCard } from "./request-details-card";
 import { RequestHeader } from "./request-details-header";
+import { RequestDetailsSkeleton } from "./request-details-skeleton";
+import { RequestFeeCard } from "./request-fee-card";
 import { RequestGallery } from "./request-gallery";
 import { RequestOverviewCard } from "./request-overview-card";
 import { RequestTimeline } from "./request-timeline";
 
-function Slot({ name }: { name: string }) {
-  return (
-    <div className="rounded-2xl border border-dashed bg-white p-6 text-sm text-slate-500">
-      {name}
-    </div>
-  );
-}
-
 export function RequestDetailsPage({ id }: { id: string }) {
   const { data: me } = useGetMe();
   const userRole: UserRole | undefined = me?.data?.role;
-  const request = { ...DUMMY_REQUEST, id };
-  console.log(request.title);
+  const { data, isPending } = useSingleRequest(id);
+  const request = data?.data ?? {};
+
+  const dashboardRoute: Record<UserRole, string> = {
+    ADMIN: "/admin/all-requests",
+    CITIZEN: "/citizen/my-requests",
+    STAFF: "/staff/assigned-requests",
+  };
+
+  if (isPending) return <RequestDetailsSkeleton />;
 
   return (
     <div className="space-y-6">
       <RequestHeader
         request={request}
-        backHref={"/admin/all-requests"}
+        backHref={userRole ? dashboardRoute[userRole] : "#"}
         userRole={userRole}
       />
-      <RequestGallery images={request.images} />
+      <RequestGallery images={request.imageUrl} />
 
       <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
         <div className="space-y-6">
@@ -39,8 +42,8 @@ export function RequestDetailsPage({ id }: { id: string }) {
         </div>
         <aside className="space-y-6">
           <RequestStatusCard request={request} userRole={userRole} />
-          <Slot name="Assignment" />
-          <Slot name="Fees" />
+          <RequestAssignmentCard request={request} />
+          <RequestFeeCard request={request} userRole={userRole} />
         </aside>
       </div>
     </div>
