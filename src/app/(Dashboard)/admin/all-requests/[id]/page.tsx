@@ -1,6 +1,6 @@
 import { RequestDetailsPage } from "@/app/(Dashboard)/_components/common/request-details/request-details";
 
-export default async function Page({
+export default async function AdminRequestDetailsPage({
   params,
 }: {
   params: Promise<{ id: string }>;

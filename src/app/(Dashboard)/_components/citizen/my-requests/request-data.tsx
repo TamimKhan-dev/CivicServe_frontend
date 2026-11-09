@@ -95,7 +95,7 @@ export default function RequestData() {
           <RequestRowActions
             request={r}
             userRole="CITIZEN"
-            detailsHref={`/citizen/requests/${r.id}`}
+            detailsHref={`/citizen/my-requests/${r.id}`}
           />
         )}
       />

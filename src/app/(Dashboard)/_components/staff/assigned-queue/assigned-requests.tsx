@@ -90,7 +90,7 @@ export default function AssignedRequest() {
           <RequestRowActions
             request={r}
             userRole="STAFF"
-            detailsHref={`/staff/requests/${r.id}`}
+            detailsHref={`/staff/assigned-requests/${r.id}`}
           />
         )}
       />

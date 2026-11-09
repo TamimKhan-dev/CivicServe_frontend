@@ -15,7 +15,6 @@ export function StatsGrid({
   label = "Statistics",
   className,
 }: StatsGridProps) {
-
   return (
     <section
       aria-label={label}

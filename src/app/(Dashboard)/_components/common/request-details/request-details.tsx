@@ -17,6 +17,7 @@ export function RequestDetailsPage({ id }: { id: string }) {
   const userRole: UserRole | undefined = me?.data?.role;
   const { data, isPending } = useSingleRequest(id);
   const request = data?.data ?? {};
+  const images = request.imageUrl ? [request.imageUrl] : [];
 
   const dashboardRoute: Record<UserRole, string> = {
     ADMIN: "/admin/all-requests",
@@ -33,7 +34,7 @@ export function RequestDetailsPage({ id }: { id: string }) {
         backHref={userRole ? dashboardRoute[userRole] : "#"}
         userRole={userRole}
       />
-      <RequestGallery images={request.imageUrl} />
+      <RequestGallery images={images} />
 
       <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
         <div className="space-y-6">

@@ -14,7 +14,7 @@ export function CitizenRecentRequests() {
       viewAllHref="/citizen/my-requests"
       requests={requests}
       isPending={isPending}
-      getDetailsHref={(r) => `/citizen/${r.id}`}
+      getDetailsHref={(r) => `/citizen/my-requests/${r.id}`}
     />
   );
 }
