@@ -32,7 +32,6 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "About Us", href: "/about" },
-  { label: "Live Tracking", href: "/tracking" },
   { label: "Contact", href: "/contact" },
 ];
 

@@ -1,4 +1,8 @@
+"use client";
+
 import { ScanSearch } from "lucide-react";
+import { useState } from "react";
+import { useSingleRequest } from "@/hooks/useRequests";
 import {
   TicketTimelineCard,
   type TrackedTicket,
@@ -6,7 +10,7 @@ import {
 import { TicketSearch } from "./other/ticket-search";
 
 const DEMO_TICKET: TrackedTicket = {
-  id: "#CV-84912",
+  id: "54b81c9a",
   priority: "High Priority",
   category: "Public Utility",
   title: "Water Main Leakage & Valve Repair",
@@ -46,6 +50,12 @@ const DEMO_TICKET: TrackedTicket = {
 };
 
 export function LiveTracking() {
+  const [requestId, setRequestId] = useState("");
+  const { data, isPending } = useSingleRequest(requestId);
+  const requestDetails = data?.data;
+
+  console.log(requestDetails);
+
   return (
     <section
       id="live-tracking"
@@ -71,7 +81,7 @@ export function LiveTracking() {
           </p>
 
           <div className="mt-6">
-            <TicketSearch defaultValue="#CV-84912" />
+            <TicketSearch onSearch={(ticketId) => setRequestId(ticketId)} />
           </div>
         </div>
 

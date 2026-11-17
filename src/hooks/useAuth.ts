@@ -44,10 +44,11 @@ export function useVerifyOtp() {
   });
 }
 
-export function useGetMe() {
+export function useGetMe(enabled: boolean) {
   return useQuery({
     queryKey: ["me"],
     queryFn: getMe,
+    enabled,
     retry: false,
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: (query) => query.state.data !== undefined,

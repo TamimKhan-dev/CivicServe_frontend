@@ -17,21 +17,16 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 type TicketSearchProps = {
-  defaultValue?: string;
   onSearch?: (ticketId: string) => void;
 };
 
-export function TicketSearch({
-  defaultValue = "",
-  onSearch,
-}: TicketSearchProps) {
+export function TicketSearch({ onSearch }: TicketSearchProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { ticketId: defaultValue },
   });
 
   return (
@@ -56,7 +51,7 @@ export function TicketSearch({
               />
               <Input
                 id="ticket-id"
-                placeholder="e.g. #CV-84912"
+                placeholder="e.g. 16fd2706"
                 autoComplete="off"
                 aria-invalid={!!errors.ticketId}
                 aria-describedby="ticket-id-help"
