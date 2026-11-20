@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { type ReactNode, useEffect } from "react";
-import { useGetMe } from "@/hooks/useAuth";
+import { useAuth } from "@/providers/auth.provider";
 import type { UserRole } from "@/types";
 import AccessDenied from "./access-denied";
 import AuthLoading from "./auth-loading";
@@ -15,26 +15,24 @@ interface IProps {
 export default function RoleGuard({ children, roles }: IProps) {
   const router = useRouter();
 
-  const { data, isPending, isError } = useGetMe();
-
-  const user = data?.data;
+  const { user, isLoading } = useAuth();
 
   const isAuthorized = !!user && roles.includes(user.role);
 
   useEffect(() => {
-    if (isPending) {
+    if (isLoading) {
       return;
     }
-    if (isError || !user) {
+    if (!user) {
       router.replace("/login");
     }
-  }, [isPending, isError, user, router]);
+  }, [isLoading, user, router]);
 
-  if (isPending) {
+  if (isLoading) {
     return <AuthLoading />;
   }
 
-  if (isError || !user) {
+  if (!user) {
     return <AuthLoading label="Redirecting..." />;
   }
 

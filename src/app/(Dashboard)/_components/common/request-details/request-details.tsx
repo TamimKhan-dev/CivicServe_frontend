@@ -1,7 +1,7 @@
 "use client";
 
-import { useGetMe } from "@/hooks/useAuth";
 import { useSingleRequest } from "@/hooks/useRequests";
+import { useAuth } from "@/providers/auth.provider";
 import type { UserRole } from "@/types";
 import { RequestAssignmentCard } from "./request-assigned-card";
 import { RequestStatusCard } from "./request-details-card";
@@ -13,9 +13,9 @@ import { RequestOverviewCard } from "./request-overview-card";
 import { RequestTimeline } from "./request-timeline";
 
 export function RequestDetailsPage({ id }: { id: string }) {
-  const { data: me } = useGetMe();
-  const userRole: UserRole | undefined = me?.data?.role;
-  const { data, isPending } = useSingleRequest(id);
+  const { user: me, isLoggedIn } = useAuth();
+  const userRole: UserRole | undefined = me?.role;
+  const { data, isPending } = useSingleRequest(id, isLoggedIn);
   const request = data?.data ?? {};
   const images = request.imageUrl ? [request.imageUrl] : [];
 

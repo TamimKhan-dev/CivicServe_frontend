@@ -10,14 +10,15 @@ import {
   verifyOtp,
 } from "@/api/auth";
 import { getErrorMessage } from "@/lib/getErrorMessage";
+import { useAuth } from "@/providers/auth.provider";
 
 export function useLogin() {
-  const queryClient = useQueryClient();
+  const { login } = useAuth();
 
   return useMutation({
     mutationFn: userLogin,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["me"] });
+      login();
       toast.success("Logged in successfully!");
     },
     onError: (error) => {

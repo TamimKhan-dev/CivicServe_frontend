@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -60,7 +59,6 @@ export function TicketSearch({ onSearch }: TicketSearchProps) {
               />
             </div>
             <Button
-              onClick={() => toast("Feature hasn't build yet!")}
               type="submit"
               className="h-10 bg-blue-600 px-6 font-semibold hover:bg-blue-700"
             >

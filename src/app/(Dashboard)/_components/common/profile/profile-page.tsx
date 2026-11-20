@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetMe } from "@/hooks/useAuth";
+import { useAuth } from "@/providers/auth.provider";
 import type { ProfileData } from "@/types";
 import { ProfileCard } from "./profile-card";
 import { ProfileDetails } from "./profile-details";
@@ -10,9 +10,9 @@ import { ProfileEditForm } from "./profile-edit-form";
 
 export function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
-  const { data, isPending, isError } = useGetMe();
+  const { user, isLoading } = useAuth();
 
-  if (isPending) {
+  if (isLoading) {
     return (
       <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
         <Skeleton className="h-80 rounded-2xl" />
@@ -21,31 +21,21 @@ export function ProfilePage() {
     );
   }
 
-  const profile: ProfileData | undefined = data?.data;
-
-  if (isError || !profile) {
-    return (
-      <p className="rounded-2xl bg-white p-6 text-sm text-red-600 shadow-sm">
-        Could not load your profile. Please refresh the page.
-      </p>
-    );
-  }
-
   return (
     <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
       <ProfileCard
-        profile={profile}
+        profile={user as ProfileData}
         isEditing={isEditing}
         onEdit={() => setIsEditing(true)}
       />
       {isEditing ? (
         <ProfileEditForm
-          profile={profile}
+          profile={user as ProfileData}
           onCancel={() => setIsEditing(false)}
           onSaved={() => setIsEditing(false)}
         />
       ) : (
-        <ProfileDetails profile={profile} />
+        <ProfileDetails profile={user as ProfileData} />
       )}
     </div>
   );

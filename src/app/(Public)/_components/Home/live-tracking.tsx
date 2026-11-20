@@ -3,58 +3,20 @@
 import { ScanSearch } from "lucide-react";
 import { useState } from "react";
 import { useSingleRequest } from "@/hooks/useRequests";
-import {
-  TicketTimelineCard,
-  type TrackedTicket,
-} from "./cards/ticket-timeline-card";
+import { mapRequestToTicket } from "@/lib/map-request-to-ticket";
+import { useAuth } from "@/providers/auth.provider";
+import { TicketTimelineCard } from "./cards/ticket-timeline-card";
+import { DEMO_REQUEST } from "./demo-data/demo-request";
 import { TicketSearch } from "./other/ticket-search";
-
-const DEMO_TICKET: TrackedTicket = {
-  id: "54b81c9a",
-  priority: "High Priority",
-  category: "Public Utility",
-  title: "Water Main Leakage & Valve Repair",
-  location: "Maple Ave & 12th St, Sector 04",
-  targetLabel: "Municipal Target Resolution Window",
-  targetValue: "Guaranteed Within 4 Hours",
-  steps: [
-    {
-      title: "Request Received & Verified",
-      description:
-        "Logged with high-accuracy GPS coordinates & citizen photo verification.",
-      time: "Today, 09:15 AM",
-      status: "done",
-    },
-    {
-      title: "Assigned: Dept. of Water Works",
-      description:
-        "Rapid Response Team Alpha deployed with repair excavator unit.",
-      time: "Today, 11:30 AM",
-      status: "done",
-    },
-    {
-      title: "Field Crew Dispatched & On-Site",
-      description:
-        "Excavation crew testing bypass valve pressure and preparing replacement gasket.",
-      time: "Live Status",
-      status: "active",
-    },
-    {
-      title: "Resolution & Sign-off",
-      description:
-        "Post-repair asphalt resurfacing, cleanup, and citizen satisfaction rating.",
-      time: "Estimated 2:00 PM",
-      status: "pending",
-    },
-  ],
-};
+import { TicketTimelineSkeleton } from "./skeletons/ticket-timeline-skeleton";
 
 export function LiveTracking() {
+  const { isLoggedIn } = useAuth();
   const [requestId, setRequestId] = useState("");
-  const { data, isPending } = useSingleRequest(requestId);
-  const requestDetails = data?.data;
+  const { data, isLoading } = useSingleRequest(requestId, isLoggedIn);
+  const request = data?.data;
 
-  console.log(requestDetails);
+  console.log(request);
 
   return (
     <section
@@ -81,13 +43,23 @@ export function LiveTracking() {
           </p>
 
           <div className="mt-6">
-            <TicketSearch onSearch={(ticketId) => setRequestId(ticketId)} />
+            <TicketSearch
+              onSearch={(trackingId: string) => setRequestId(trackingId)}
+            />
           </div>
         </div>
 
         {/* Right */}
         <div className="lg:col-span-3">
-          <TicketTimelineCard ticket={DEMO_TICKET} />
+          {isLoggedIn && requestId && isLoading ? (
+            <TicketTimelineSkeleton />
+          ) : request ? (
+            <TicketTimelineCard ticket={mapRequestToTicket(request)} />
+          ) : (
+            <TicketTimelineCard
+              ticket={request ?? mapRequestToTicket(DEMO_REQUEST)}
+            />
+          )}
         </div>
       </div>
     </section>

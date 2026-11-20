@@ -120,10 +120,11 @@ export function usePaymentDetails(sessionId: string) {
   });
 }
 
-export function useSingleRequest(requestId: string) {
+export function useSingleRequest(requestId: string, isLoggedIn: boolean) {
   return useQuery({
     queryKey: ["single-request", requestId],
     queryFn: () => getSingleRequest(requestId),
+    enabled: isLoggedIn && !!requestId,
   });
 }
 

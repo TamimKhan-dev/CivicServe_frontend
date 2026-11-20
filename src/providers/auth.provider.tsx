@@ -79,5 +79,3 @@ export function useAuth() {
   if (!ctx) throw new Error("useAuth must be used inside <AuthProvider>");
   return ctx;
 }
-
-// TODO: write a commit for create user logged in global state

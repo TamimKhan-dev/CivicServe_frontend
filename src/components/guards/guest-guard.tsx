@@ -2,26 +2,24 @@
 
 import { useRouter } from "next/navigation";
 import { type ReactNode, useEffect } from "react";
-import { useGetMe } from "@/hooks/useAuth";
+import { useAuth } from "@/providers/auth.provider";
 import AuthLoading from "./auth-loading";
 
 export default function GuestGuard({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const { data, isPending, isError } = useGetMe();
-
-  const user = data?.data;
+  const { user, isLoading } = useAuth();
 
   useEffect(() => {
-    if (!isPending && !isError && user) {
+    if (!isLoading && user) {
       router.replace("/");
     }
-  }, [isPending, isError, user, router]);
+  }, [isLoading, user, router]);
 
-  if (isPending) {
+  if (isLoading) {
     return <AuthLoading label="Redirecting..." />;
   }
 
-  if (isError || !user) {
+  if (!user) {
     return <>{children}</>;
   }
 

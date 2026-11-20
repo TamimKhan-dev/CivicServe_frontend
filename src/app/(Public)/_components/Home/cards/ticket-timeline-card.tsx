@@ -6,11 +6,12 @@ import { cn } from "@/lib/utils";
 
 export type StepStatus = "done" | "active" | "pending";
 
-export type TimelineStep = {
+type TimelineStep = {
   title: string;
   description: string;
-  time: string;
+  time?: string;
   status: StepStatus;
+  spin?: boolean;
 };
 
 export type TrackedTicket = {
@@ -76,7 +77,7 @@ export function TicketTimelineCard({
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-base font-bold text-blue-600">
-                {ticket.id}
+                {ticket?.id}
               </span>
               <Badge className="rounded-full bg-red-50 text-[11px] font-semibold text-red-600 hover:bg-red-50">
                 {ticket.priority}
@@ -131,7 +132,10 @@ export function TicketTimelineCard({
                     s.circle,
                   )}
                 >
-                  <StepIcon className="size-4" aria-hidden />
+                  <StepIcon
+                    className={cn("size-4", step.spin && "animate-spin")}
+                    aria-hidden
+                  />
                 </span>
 
                 <div
@@ -158,16 +162,19 @@ export function TicketTimelineCard({
                       {step.description}
                     </p>
                   </div>
-                  <span
-                    className={cn(
-                      "shrink-0 text-xs",
-                      step.status === "active"
-                        ? "font-semibold text-blue-600"
-                        : "text-slate-400",
-                    )}
-                  >
-                    {step.time}
-                  </span>
+
+                  {step.time && (
+                    <span
+                      className={cn(
+                        "shrink-0 text-xs",
+                        step.status === "active"
+                          ? "font-semibold text-blue-600"
+                          : "text-slate-400",
+                      )}
+                    >
+                      {step.time}
+                    </span>
+                  )}
                 </div>
               </li>
             );

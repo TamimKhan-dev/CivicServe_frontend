@@ -24,7 +24,7 @@ const labelClass = "text-xs font-bold text-slate-700";
 
 export default function PaymentCancel() {
   const requestId = useSearchParams().get("requestId");
-  const { data, isPending } = useSingleRequest(requestId as string);
+  const { data, isPending } = useSingleRequest(requestId as string, true);
   const payment = data?.data ?? {};
 
   return (

@@ -22,8 +22,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useGetMe, useLogout } from "@/hooks/useAuth";
+import { useLogout } from "@/hooks/useAuth";
 import { cn, getInitials } from "@/lib/utils";
+import { useAuth } from "@/providers/auth.provider";
 import type { UserRole } from "@/types";
 import { Logo } from "../ui/logo";
 import { Skeleton } from "../ui/skeleton";
@@ -40,9 +41,8 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   const { mutate: Logout, isPending: isLogoutPending } = useLogout();
-  const { data, isPending } = useGetMe();
-  const user = data?.data ?? null;
-  const role: UserRole = !!user && user.role;
+  const { user, isLoading, clearSession } = useAuth();
+  const role = !!user && user.role;
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -77,7 +77,7 @@ export function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {!isPending && !user && (
+          {!isLoading && !user && (
             <Button
               asChild
               variant="ghost"
@@ -97,7 +97,7 @@ export function Navbar() {
             </Link>
           </Button>
 
-          {isPending ? (
+          {isLoading ? (
             <Skeleton className="size-9 rounded-full bg-slate-300" />
           ) : user ? (
             <DropdownMenu>
@@ -106,7 +106,10 @@ export function Navbar() {
                 aria-label="Open profile menu"
               >
                 <Avatar className="size-9">
-                  <AvatarImage src={user.image ?? undefined} alt={user.name} />
+                  <AvatarImage
+                    src={user.profileImage ?? undefined}
+                    alt={user.name}
+                  />
                   <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
@@ -136,12 +139,15 @@ export function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onSelect={() => Logout()}
+                  onSelect={() => {
+                    Logout();
+                    clearSession();
+                  }}
                   disabled={isLogoutPending}
                   className="cursor-pointer"
                 >
                   <LogOut className="size-4" />
-                  {isPending ? "Logging out..." : "Logout"}
+                  {isLoading ? "Logging out..." : "Logout"}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

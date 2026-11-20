@@ -2,21 +2,25 @@
 
 import { type ReactNode, useState } from "react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
-import { useGetMe, useLogout } from "@/hooks/useAuth";
+import { useLogout } from "@/hooks/useAuth";
+import { useAuth } from "@/providers/auth.provider";
+import type { ProfileData } from "@/types";
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardSidebar } from "./dashboard-sidebar";
 
 export function DashboardShell({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { mutate: logout } = useLogout();
-  const { data } = useGetMe();
-  const user = data?.data;
+  const { user } = useAuth();
 
   return (
     <div className="flex min-h-dvh bg-slate-50">
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 border-r bg-white lg:block">
-        <DashboardSidebar user={user} onLogout={() => logout()} />
+        <DashboardSidebar
+          user={user as ProfileData}
+          onLogout={() => logout()}
+        />
       </aside>
 
       {/* Mobile sidebar */}
@@ -24,7 +28,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
         <SheetContent side="left" className="w-72 gap-0 p-0 lg:hidden">
           <SheetTitle className="sr-only">Navigation menu</SheetTitle>
           <DashboardSidebar
-            user={user}
+            user={user as ProfileData}
             onLogout={() => logout()}
             onNavigate={() => setMobileOpen(false)}
           />
@@ -34,7 +38,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
       {/* Main column */}
       <div className="flex min-w-0 flex-1 flex-col">
         <DashboardHeader
-          user={user}
+          user={user as ProfileData}
           onMenuClick={() => setMobileOpen(true)}
           onLogout={() => logout()}
         />
