@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { RequestStatus } from "@/types/requests-types";
+import type { RequestStatus } from "@/types";
 
 const STATUS_STYLES: Record<
   RequestStatus,

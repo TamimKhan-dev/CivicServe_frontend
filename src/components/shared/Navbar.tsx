@@ -33,7 +33,6 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "About Us", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {

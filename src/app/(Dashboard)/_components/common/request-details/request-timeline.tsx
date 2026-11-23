@@ -1,7 +1,7 @@
 import { Check, Flag, Info, Wrench, X } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails } from "@/types";
 import { buildTimelineSteps, getStageLabel } from "./timeline-steps";
 
 const STATE = {

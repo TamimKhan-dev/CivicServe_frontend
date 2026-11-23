@@ -50,7 +50,7 @@ export function TicketSearch({ onSearch }: TicketSearchProps) {
               />
               <Input
                 id="ticket-id"
-                placeholder="e.g. 16fd2706"
+                placeholder="e.g. e0f5b5fc-1856-4b2b-874f-c788922ad277"
                 autoComplete="off"
                 aria-invalid={!!errors.ticketId}
                 aria-describedby="ticket-id-help"

@@ -2,7 +2,7 @@ import { Mail, UserX } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { getInitials } from "@/lib/utils";
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails } from "@/types";
 
 export function RequestAssignmentCard({
   request,

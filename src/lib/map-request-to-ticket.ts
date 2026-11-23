@@ -3,7 +3,7 @@ import type {
   TrackedTicket,
 } from "@/app/(Public)/_components/Home/cards/ticket-timeline-card";
 import { formatDate } from "@/lib/utils";
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails } from "@/types";
 
 const FLOW = ["SUBMITTED", "ASSIGNED", "IN_PROGRESS", "RESOLVED"];
 
@@ -51,7 +51,7 @@ export function mapRequestToTicket(r: RequestDetails): TrackedTicket {
   }));
 
   return {
-    id: r.id.slice(0, 8),
+    id: r.id,
     priority: r.type === "SERVICE_REQUEST" ? "Service Request" : "Complaint",
     category: r.category?.name as string,
     title: r.title,

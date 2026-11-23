@@ -3,8 +3,7 @@
 import { Clock } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { cn, timeAgo } from "@/lib/utils";
-import type { UserRole } from "@/types";
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails, UserRole } from "@/types";
 import { hasRoleAction, isAwaitingPayment } from "../request-table/helper";
 import { RequestRowActions } from "../request-table/request-row-actions";
 

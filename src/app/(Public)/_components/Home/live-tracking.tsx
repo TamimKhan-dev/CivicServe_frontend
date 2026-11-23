@@ -16,8 +16,6 @@ export function LiveTracking() {
   const { data, isLoading } = useSingleRequest(requestId, isLoggedIn);
   const request = data?.data;
 
-  console.log(request);
-
   return (
     <section
       id="live-tracking"

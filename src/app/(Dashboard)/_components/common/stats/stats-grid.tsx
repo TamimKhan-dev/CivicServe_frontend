@@ -7,9 +7,17 @@ type StatsGridProps = {
   isPending?: boolean;
   label?: string;
   className?: string;
+  gridCount?: number;
+};
+
+const gridColumns: Record<number, string> = {
+  2: "xl:grid-cols-2",
+  3: "xl:grid-cols-3",
+  4: "xl:grid-cols-4",
 };
 
 export function StatsGrid({
+  gridCount,
   stats,
   isPending = false,
   label = "Statistics",
@@ -19,7 +27,8 @@ export function StatsGrid({
     <section
       aria-label={label}
       className={cn(
-        "grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4",
+        "grid grid-cols-1 gap-4 sm:grid-cols-2",
+        gridColumns[gridCount ?? 4],
         className,
       )}
     >

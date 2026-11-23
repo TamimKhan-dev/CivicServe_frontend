@@ -2,7 +2,7 @@
 
 import { CheckCircle2, ClipboardList, Clock, RefreshCw } from "lucide-react";
 import { useCitizenStats } from "@/hooks/useStats";
-import type { CitizenStatsData } from "@/types/requests-types";
+import type { CitizenStatsData } from "@/types/dashboard";
 import type { StatItem } from "../../common/stats/stats-card";
 import { StatsGrid } from "../../common/stats/stats-grid";
 

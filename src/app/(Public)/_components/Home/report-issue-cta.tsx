@@ -53,7 +53,7 @@ export function ReportIssueCta() {
                 size="lg"
                 className="bg-white font-semibold text-blue-700 shadow-lg hover:bg-blue-50"
               >
-                <Link href="/requests/new">
+                <Link href="/citizen/create-request">
                   <MapPinPlus className="size-4" aria-hidden />
                   Submit a Request
                 </Link>

@@ -76,8 +76,8 @@ export function TicketTimelineCard({
         <div className="flex items-start justify-between gap-4 border-b pb-5">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-base font-bold text-blue-600">
-                {ticket?.id}
+              <span className="font-mono text-xs break-all text-blue-600">
+                {ticket.id}
               </span>
               <Badge className="rounded-full bg-red-50 text-[11px] font-semibold text-red-600 hover:bg-red-50">
                 {ticket.priority}

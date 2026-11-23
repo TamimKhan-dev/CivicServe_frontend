@@ -1,9 +1,5 @@
 import type { ReactNode } from "react";
-import type {
-  PaymentStatus,
-  RequestStatus,
-  RequestType,
-} from "@/types/requests-types";
+import type { PaymentStatus, RequestStatus, RequestType } from "@/types";
 
 export type RequestItem = {
   id: string;

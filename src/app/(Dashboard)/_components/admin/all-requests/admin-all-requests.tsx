@@ -2,7 +2,7 @@
 
 import { useAllRequests, useCategories } from "@/hooks/useRequests";
 import { useUrlFilters } from "@/hooks/useUrlFilters";
-import type { Category } from "@/types/requests-types";
+import type { Category } from "@/types";
 import { REQUEST_URL_DEFAULTS } from "../../citizen/my-requests/request-data";
 import { RequestFiltersSkeleton } from "../../citizen/my-requests/request-filter-skeleton";
 import {

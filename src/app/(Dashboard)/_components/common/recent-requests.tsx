@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatDate } from "@/lib/utils";
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails } from "@/types";
 import {
   RequestListSkeleton,
   RequestRowsSkeleton,

@@ -1,12 +1,12 @@
 import apiClient from "@/lib/apiClient";
 import type {
-  ApiList,
   CreateRequestPayload,
   CreateRequestResponse,
   Department,
   QueryParams,
   Service,
-} from "@/types/requests-types";
+} from "@/types";
+import type { ApiList } from "@/types/shared/common.types";
 
 export function myRecentRequests() {
   return apiClient(`/api/v1/request/my-requests?sortOrder=desc&limit=4`);

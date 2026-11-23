@@ -1,4 +1,4 @@
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails } from "@/types";
 
 export const DEMO_REQUEST: RequestDetails = {
   id: "54b81c9a-0000-4000-8000-000000000000",

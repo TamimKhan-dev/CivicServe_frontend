@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import type { Service } from "@/types/requests-types";
+import type { Service } from "@/types";
 
 export function ServiceCard({ service }: { service: Service }) {
   const { name, description, fee, slaHours, department } = service;

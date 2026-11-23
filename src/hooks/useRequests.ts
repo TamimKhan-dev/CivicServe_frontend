@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { allPayments } from "@/api/payments";
 import {
   adminRecentRequests,
   allCategories,
@@ -19,7 +20,7 @@ import {
   uploadRequestImage,
 } from "@/api/requests";
 import { getErrorMessage } from "@/lib/getErrorMessage";
-import type { CreateRequestPayload, QueryParams } from "@/types/requests-types";
+import type { CreateRequestPayload, QueryParams } from "@/types";
 
 const TEN_MINUTES = 10 * 60 * 1000;
 
@@ -183,5 +184,12 @@ export function useAssignStaff() {
       toast.error(getErrorMessage(error));
       console.log(error);
     },
+  });
+}
+
+export function useAllPaymentsList() {
+  return useQuery({
+    queryKey: ["all-payments"],
+    queryFn: allPayments,
   });
 }

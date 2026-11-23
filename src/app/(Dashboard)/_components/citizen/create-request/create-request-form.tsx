@@ -24,10 +24,7 @@ import {
   useServices,
 } from "@/hooks/useRequests";
 import { getErrorMessage } from "@/lib/getErrorMessage";
-import type {
-  CreateRequestPayload,
-  RequestCategory,
-} from "@/types/requests-types";
+import type { CreateRequestPayload, RequestCategory } from "@/types";
 import type { CreateRequestValues } from "@/validations/request.validation";
 import {
   createRequestSchema,

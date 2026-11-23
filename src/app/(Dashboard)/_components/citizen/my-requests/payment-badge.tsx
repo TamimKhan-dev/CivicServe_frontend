@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { PaymentStatus } from "@/types/requests-types";
+import type { PaymentStatus } from "@/types";
 
 const PAYMENT_STYLES: Record<PaymentStatus, { label: string; badge: string }> =
   {

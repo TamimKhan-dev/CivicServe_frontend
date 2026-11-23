@@ -1,5 +1,5 @@
 import { formatDateTime } from "@/lib/utils";
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails } from "@/types";
 
 export type TimelineStep = {
   id: string;

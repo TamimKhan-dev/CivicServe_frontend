@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { RequestType } from "@/types/requests-types";
+import type { RequestType } from "@/types";
 
 export function TypeTag({ type }: { type: RequestType }) {
   const service = type === "SERVICE_REQUEST";

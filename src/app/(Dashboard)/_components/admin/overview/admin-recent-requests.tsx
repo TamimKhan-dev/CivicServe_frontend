@@ -1,7 +1,7 @@
 "use client";
 
 import { useAdminRecentRequests } from "@/hooks/useRequests";
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails } from "@/types";
 import { RecentRequestsCard } from "../../common/recent-requests";
 
 export function AdminRecentRequests() {

@@ -1,8 +1,7 @@
 import { CheckCircle2, Clock, type LucideIcon, Undo2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { cn, formatDate } from "@/lib/utils";
-import type { UserRole } from "@/types";
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails, UserRole } from "@/types";
 import { formatMoney } from "../request-table/helper";
 
 type Look = { box: string; text: string; label: string; icon: LucideIcon };

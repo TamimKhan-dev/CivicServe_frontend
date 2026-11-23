@@ -6,7 +6,7 @@ import {
   User,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import type { RequestDetails } from "@/types/requests-types";
+import type { RequestDetails } from "@/types";
 import { InfoItem } from "./info-item";
 
 export function RequestOverviewCard({ request }: { request: RequestDetails }) {

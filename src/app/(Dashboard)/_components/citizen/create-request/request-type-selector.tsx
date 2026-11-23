@@ -3,7 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import type { RequestType } from "@/types/requests-types";
+import type { RequestType } from "@/types";
 
 const OPTIONS: {
   value: RequestType;
