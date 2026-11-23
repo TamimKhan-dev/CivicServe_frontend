@@ -2,11 +2,11 @@
 
 import { useCategories, useMyRequests } from "@/hooks/useRequests";
 import { useUrlFilters } from "@/hooks/useUrlFilters";
-import type { Category } from "@/types";
+import type { Category, RequestFilterValues } from "@/types";
 import { RequestRowActions } from "../../common/request-table/request-row-actions";
 import RequestTable from "../../common/request-table/request-table";
 import { RequestFiltersSkeleton } from "./request-filter-skeleton";
-import { RequestFilters, type RequestFilterValues } from "./requests-filters";
+import { RequestFilters } from "./requests-filters";
 
 const PAGE_SIZE = 5;
 

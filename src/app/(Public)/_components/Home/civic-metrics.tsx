@@ -5,7 +5,8 @@ import {
   Network,
   Users,
 } from "lucide-react";
-import { type Metric, MetricCard } from "./cards/civic-metrics-card";
+import type { Metric } from "@/types";
+import { MetricCard } from "./cards/civic-metrics-card";
 
 const METRICS: Metric[] = [
   {

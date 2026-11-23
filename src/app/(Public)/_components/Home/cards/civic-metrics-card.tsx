@@ -1,16 +1,7 @@
-import type { LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-
-export type Metric = {
-  icon: LucideIcon;
-  value: string;
-  label: string;
-  tag: string;
-  iconClass: string;
-  tagClass: string;
-};
+import type { Metric } from "@/types";
 
 export function MetricCard({
   icon: Icon,

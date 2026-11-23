@@ -2,13 +2,10 @@
 
 import { useAllRequests, useCategories } from "@/hooks/useRequests";
 import { useUrlFilters } from "@/hooks/useUrlFilters";
-import type { Category } from "@/types";
+import type { Category, RequestFilterValues } from "@/types";
 import { REQUEST_URL_DEFAULTS } from "../../citizen/my-requests/request-data";
 import { RequestFiltersSkeleton } from "../../citizen/my-requests/request-filter-skeleton";
-import {
-  RequestFilters,
-  type RequestFilterValues,
-} from "../../citizen/my-requests/requests-filters";
+import { RequestFilters } from "../../citizen/my-requests/requests-filters";
 import { RequestRowActions } from "../../common/request-table/request-row-actions";
 import RequestTable from "../../common/request-table/request-table";
 

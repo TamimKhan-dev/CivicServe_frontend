@@ -1,9 +1,5 @@
-import type {
-  StepStatus,
-  TrackedTicket,
-} from "@/app/(Public)/_components/Home/cards/ticket-timeline-card";
 import { formatDate } from "@/lib/utils";
-import type { RequestDetails } from "@/types";
+import type { RequestDetails, StepStatus, TrackedTicket } from "@/types";
 
 const FLOW = ["SUBMITTED", "ASSIGNED", "IN_PROGRESS", "RESOLVED"];
 

@@ -1,7 +1,7 @@
 import { formatDateTime } from "@/lib/utils";
 import type { RequestDetails } from "@/types";
 
-export type TimelineStep = {
+type TimelineStep = {
   id: string;
   title: string;
   state: "DONE" | "ACTIVE" | "PENDING" | "REJECTED";

@@ -8,13 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-
-export type RequestFilterValues = {
-  search: string;
-  status: string;
-  category: string;
-  sort: "newest" | "oldest";
-};
+import type { RequestFilterValues } from "@/types";
 
 const STATUS_OPTIONS = [
   { value: "SUBMITTED", label: "Pending" },

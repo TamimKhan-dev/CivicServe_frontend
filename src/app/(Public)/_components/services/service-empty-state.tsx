@@ -23,7 +23,7 @@ export function ServicesEmptyState({
         {hasSearch ? "No services found" : "No services available yet"}
       </h2>
 
-      <p className="mt-2 max-w-sm break-words text-sm text-slate-600">
+      <p className="mt-2 max-w-sm wrap-break-words text-sm text-slate-600">
         {hasSearch
           ? `We couldn't find anything for "${search.trim()}". Try a different keyword or a department name.`
           : "Municipal services will appear here once they are published."}

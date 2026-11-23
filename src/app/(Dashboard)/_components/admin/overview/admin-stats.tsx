@@ -2,7 +2,7 @@
 
 import { ClipboardList, Clock, RefreshCw, Users } from "lucide-react";
 import { useAdminStats } from "@/hooks/useStats";
-import type { StatItem } from "../../common/stats/stats-card";
+import type { StatItem } from "@/types";
 import { StatsGrid } from "../../common/stats/stats-grid";
 
 export default function AdminStats() {

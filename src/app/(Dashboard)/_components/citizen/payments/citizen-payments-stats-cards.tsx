@@ -1,5 +1,5 @@
 import { ClipboardList, Clock, RefreshCw } from "lucide-react";
-import type { StatItem } from "../../common/stats/stats-card";
+import type { StatItem } from "@/types";
 import { StatsGrid } from "../../common/stats/stats-grid";
 
 export default function CitizenPaymentStats() {

@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
+import type { StatItem } from "@/types";
 import { StatCardSkeleton } from "../../citizen/overview/stat-card-skeleton";
-import { StatCard, type StatItem } from "./stats-card";
+import { StatCard } from "./stats-card";
 
 type StatsGridProps = {
   stats: StatItem[];

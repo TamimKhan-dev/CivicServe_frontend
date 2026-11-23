@@ -3,27 +3,7 @@ import { Check, Clock, Droplet, Info, MapPin, RefreshCw } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-
-export type StepStatus = "done" | "active" | "pending";
-
-type TimelineStep = {
-  title: string;
-  description: string;
-  time?: string;
-  status: StepStatus;
-  spin?: boolean;
-};
-
-export type TrackedTicket = {
-  id: string;
-  priority: string;
-  category: string;
-  title: string;
-  location: string;
-  targetLabel: string;
-  targetValue: string;
-  steps: TimelineStep[];
-};
+import type { StepStatus, TrackedTicket } from "@/types";
 
 const STEP_STYLES: Record<
   StepStatus,

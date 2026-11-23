@@ -1,3 +1,5 @@
+export type RequestType = "COMPLAINT_REQUEST" | "SERVICE_REQUEST";
+export type StepStatus = "done" | "active" | "pending";
 export type PaymentStatus =
   | "PENDING"
   | "PAID"
@@ -5,13 +7,31 @@ export type PaymentStatus =
   | "CANCELLED"
   | "REFUNDED";
 
-export type RequestType = "COMPLAINT_REQUEST" | "SERVICE_REQUEST";
 export type RequestStatus =
   | "SUBMITTED"
   | "ASSIGNED"
   | "IN_PROGRESS"
   | "RESOLVED"
   | "REJECTED";
+
+type TimelineStep = {
+  title: string;
+  description: string;
+  time?: string;
+  status: StepStatus;
+  spin?: boolean;
+};
+
+export type TrackedTicket = {
+  id: string;
+  priority: string;
+  category: string;
+  title: string;
+  location: string;
+  targetLabel: string;
+  targetValue: string;
+  steps: TimelineStep[];
+};
 
 export type RequestPayment = {
   id: string;
@@ -90,4 +110,11 @@ export type Service = {
   isActive: boolean;
   departmentId: string;
   department: { id: string; name: string };
+};
+
+export type RequestFilterValues = {
+  search: string;
+  status: string;
+  category: string;
+  sort: "newest" | "oldest";
 };

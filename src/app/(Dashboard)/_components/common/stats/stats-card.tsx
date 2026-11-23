@@ -1,14 +1,6 @@
-import type { LucideIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-
-export type StatItem = {
-  label: string;
-  value: number | string;
-  description: string;
-  icon: LucideIcon;
-  iconClass: string;
-};
+import type { StatItem } from "@/types";
 
 export function StatCard({
   label,
