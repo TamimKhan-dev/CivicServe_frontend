@@ -22,7 +22,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useLogout } from "@/hooks/useAuth";
+import { useLogout } from "@/hooks/auth/useAuth";
 import { cn, getInitials } from "@/lib/utils";
 import { useAuth } from "@/providers/auth.provider";
 import type { UserRole } from "@/types";

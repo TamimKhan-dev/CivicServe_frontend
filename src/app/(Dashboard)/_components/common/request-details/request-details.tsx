@@ -1,6 +1,6 @@
 "use client";
 
-import { useSingleRequest } from "@/hooks/useRequests";
+import { useSingleRequest } from "@/hooks/requests/useRequests";
 import { useAuth } from "@/providers/auth.provider";
 import type { UserRole } from "@/types";
 import { RequestAssignmentCard } from "./request-assigned-card";

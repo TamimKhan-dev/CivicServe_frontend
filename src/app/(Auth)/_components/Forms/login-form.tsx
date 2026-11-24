@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PasswordToggle } from "@/components/ui/password-toggle";
-import { useLogin } from "@/hooks/useAuth";
+import { useLogin } from "@/hooks/auth/useAuth";
 import { loginSchema } from "@/validations";
 
 export type LoginValues = z.infer<typeof loginSchema>;

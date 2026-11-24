@@ -3,7 +3,7 @@
 import { ArrowRight, LayoutGrid } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useServices } from "@/hooks/useRequests";
+import { useServices } from "@/hooks/requests/useRequests";
 import { ServiceCard } from "../services/service-card";
 import { ServiceCardSkeleton } from "../services/service-card-skeleton";
 

@@ -1,7 +1,8 @@
 "use client";
 
-import { useCategories, useMyRequests } from "@/hooks/useRequests";
-import { useUrlFilters } from "@/hooks/useUrlFilters";
+import { useCitizenRequests } from "@/hooks/dashboard/citizen/useCitizenHooks";
+import { useCategories } from "@/hooks/requests/useRequests";
+import { useUrlFilters } from "@/hooks/shared/useUrlFilters";
 import type { Category, RequestFilterValues } from "@/types";
 import { RequestRowActions } from "../../common/request-table/request-row-actions";
 import RequestTable from "../../common/request-table/request-table";
@@ -38,7 +39,7 @@ export default function RequestData() {
     .filter((c) => c.isActive)
     .map((c) => ({ value: c.id, label: c.name }));
 
-  const { data, isPending: isRequestPending } = useMyRequests({
+  const { data, isPending: isRequestPending } = useCitizenRequests({
     page,
     limit: PAGE_SIZE,
     searchTerm: values.searchTerm || undefined,

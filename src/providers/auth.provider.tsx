@@ -10,7 +10,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useGetMe } from "@/hooks/useAuth";
+import { useGetMe } from "@/hooks/auth/useAuth";
 import type { ProfileData } from "@/types";
 
 const FLAG_KEY = "civicserve:loggedIn";

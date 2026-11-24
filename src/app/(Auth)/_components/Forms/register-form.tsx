@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { PasswordToggle } from "@/components/ui/password-toggle";
-import { useRegisterUser, useVerifyOtp } from "@/hooks/useAuth";
+import { useRegisterUser, useVerifyOtp } from "@/hooks/auth/useAuth";
 import { registerSchema } from "@/validations";
 import { VerifyOtpModal } from "../modals/verify-otp-modal";
 

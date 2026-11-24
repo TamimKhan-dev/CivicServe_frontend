@@ -16,7 +16,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useAssignStaff, useStaffList } from "@/hooks/useRequests";
+import { useAssignStaff, useStaffList } from "@/hooks/requests/useRequests";
 import { cn } from "@/lib/utils";
 
 type StaffItem = {

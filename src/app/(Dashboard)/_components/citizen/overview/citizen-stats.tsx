@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle2, ClipboardList, Clock, RefreshCw } from "lucide-react";
-import { useCitizenStats } from "@/hooks/useStats";
+import { useCitizenStats } from "@/hooks/dashboard/useStats";
 import type { StatItem } from "@/types";
 import type { CitizenStatsData } from "@/types/dashboard";
 import { StatsGrid } from "../../common/stats/stats-grid";

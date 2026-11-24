@@ -1,11 +1,11 @@
 "use client";
 
-import { useMyRecentRequests } from "@/hooks/useRequests";
+import { useCitizenRecentRequests } from "@/hooks/dashboard/citizen/useCitizenHooks";
 import type { RequestDetails } from "@/types";
 import { RecentRequestsCard } from "../../common/recent-requests";
 
 export function CitizenRecentRequests() {
-  const { data, isPending } = useMyRecentRequests();
+  const { data, isPending } = useCitizenRecentRequests();
   const requests: RequestDetails[] = data?.data?.requests ?? [];
 
   return (

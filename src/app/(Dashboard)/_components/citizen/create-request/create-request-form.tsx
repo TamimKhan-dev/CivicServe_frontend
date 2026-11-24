@@ -22,7 +22,7 @@ import {
   useCreateRequest,
   useDepartments,
   useServices,
-} from "@/hooks/useRequests";
+} from "@/hooks/requests/useRequests";
 import { getErrorMessage } from "@/lib/getErrorMessage";
 import type { CreateRequestPayload, RequestCategory } from "@/types";
 import type { CreateRequestValues } from "@/validations/request.validation";

@@ -2,7 +2,7 @@
 
 import { ScanSearch } from "lucide-react";
 import { useState } from "react";
-import { useSingleRequest } from "@/hooks/useRequests";
+import { useSingleRequest } from "@/hooks/requests/useRequests";
 import { mapRequestToTicket } from "@/lib/map-request-to-ticket";
 import { useAuth } from "@/providers/auth.provider";
 import { TicketTimelineCard } from "./cards/ticket-timeline-card";

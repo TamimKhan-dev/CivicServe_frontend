@@ -14,7 +14,7 @@ import { useSearchParams } from "next/navigation";
 import SpinnerCustom from "@/app/loading";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useSingleRequest } from "@/hooks/useRequests";
+import { useSingleRequest } from "@/hooks/requests/useRequests";
 import {
   CopyIdButton,
   ReceiptRow,

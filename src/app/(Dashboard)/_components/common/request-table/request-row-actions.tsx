@@ -5,7 +5,10 @@ import { ArrowRight, CreditCard, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { useCreatePayment, useUpdateRequestStatus } from "@/hooks/useRequests";
+import {
+  useCreatePayment,
+  useUpdateRequestStatus,
+} from "@/hooks/requests/useRequests";
 import type { UserRole } from "@/types";
 import { AssignStaffDialog } from "../../admin/all-requests/assign-staff-dialog";
 import { canAssignStaff, needsPayment } from "./helper";

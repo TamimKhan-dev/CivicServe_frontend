@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useServices } from "@/hooks/useRequests";
+import { useServices } from "@/hooks/requests/useRequests";
 import { ServiceCard } from "./service-card";
 import { ServiceCardSkeleton } from "./service-card-skeleton";
 import { ServicesEmptyState } from "./service-empty-state";

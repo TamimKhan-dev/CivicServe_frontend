@@ -2,7 +2,7 @@
 
 import { Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useLogin } from "@/hooks/useAuth";
+import { useLogin } from "@/hooks/auth/useAuth";
 import { cn } from "@/lib/utils";
 import type { UserRole } from "@/types";
 import { OPTIONS } from "./Others/demo-login-data";

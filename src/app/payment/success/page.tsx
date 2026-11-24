@@ -13,7 +13,7 @@ import { useSearchParams } from "next/navigation";
 import SpinnerCustom from "@/app/loading";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { usePaymentDetails } from "@/hooks/useRequests";
+import { usePaymentDetails } from "@/hooks/dashboard/citizen/useCitizenHooks";
 import { PaymentReceiptDetails } from "../_components/payment-receipt-details";
 
 export default function PaymentSuccess() {

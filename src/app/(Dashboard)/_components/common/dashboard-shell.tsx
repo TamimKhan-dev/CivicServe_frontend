@@ -2,7 +2,7 @@
 
 import { type ReactNode, useState } from "react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
-import { useLogout } from "@/hooks/useAuth";
+import { useLogout } from "@/hooks/auth/useAuth";
 import { useAuth } from "@/providers/auth.provider";
 import type { ProfileData } from "@/types";
 import { DashboardHeader } from "./dashboard-header";
