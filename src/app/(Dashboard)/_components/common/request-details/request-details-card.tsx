@@ -2,9 +2,12 @@
 
 import { Clock } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import {
+  hasRoleAction,
+  isAwaitingPayment,
+} from "@/lib/requests/requests-helpers";
 import { cn, timeAgo } from "@/lib/utils";
 import type { RequestDetails, UserRole } from "@/types";
-import { hasRoleAction, isAwaitingPayment } from "../request-table/helper";
 import { RequestRowActions } from "../request-table/request-row-actions";
 
 type StatusUi = {

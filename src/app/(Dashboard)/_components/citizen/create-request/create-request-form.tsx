@@ -17,9 +17,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useCreateRequest } from "@/hooks/dashboard/citizen/useCitizenHooks";
 import {
   useCategories,
-  useCreateRequest,
   useDepartments,
   useServices,
 } from "@/hooks/requests/useRequests";

@@ -2,7 +2,8 @@
 
 import { Check, Copy, CreditCard } from "lucide-react";
 import { useState } from "react";
-import { cn, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/formatters";
+import { cn } from "@/lib/utils";
 
 export type PaymentReceipt = {
   id: string;

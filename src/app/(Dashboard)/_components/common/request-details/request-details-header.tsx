@@ -3,7 +3,8 @@
 import { ArrowLeft, Clock } from "lucide-react";
 import Link from "next/link";
 import { CopyIdButton } from "@/app/payment/_components/payment-receipt-details";
-import { formatDateTime, timeAgo } from "@/lib/utils";
+import { formatDateTime } from "@/lib/formatters";
+import { timeAgo } from "@/lib/utils";
 import type { RequestDetails, UserRole } from "@/types";
 import { StatusBadge } from "../../citizen/overview/status-badge";
 

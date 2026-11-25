@@ -9,14 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/formatters";
 import type { RequestDetails } from "@/types";
 import {
   RequestListSkeleton,
   RequestRowsSkeleton,
 } from "../citizen/overview/recent-requests-skeleton";
 import { StatusBadge } from "../citizen/overview/status-badge";
-import { EmptyState } from "./table-empty-state";
+import { EmptyState } from "./request-table/table-empty-state";
 
 type Props = {
   title?: string;

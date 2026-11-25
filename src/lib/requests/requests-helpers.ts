@@ -1,5 +1,5 @@
+import type { RequestItem } from "@/app/(Dashboard)/_components/common/request-table/request-table-types";
 import type { UserRole } from "@/types";
-import type { RequestItem } from "./request-table-types";
 
 export const isService = (r: RequestItem) => r.type === "SERVICE_REQUEST";
 
@@ -21,8 +21,3 @@ export function hasRoleAction(r: RequestItem, role: UserRole) {
     return r.status === "ASSIGNED" || r.status === "IN_PROGRESS";
   return canAssignStaff(r);
 }
-
-export const formatMoney = (amount: number | string) =>
-  new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(
-    Number(amount),
-  );

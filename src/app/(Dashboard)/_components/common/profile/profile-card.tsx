@@ -2,7 +2,7 @@ import { Calendar, Pencil } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/formatters";
 import type { ProfileData } from "@/types";
 
 type Props = {

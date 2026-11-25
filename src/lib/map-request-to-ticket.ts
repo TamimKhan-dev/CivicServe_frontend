@@ -1,5 +1,5 @@
-import { formatDate } from "@/lib/utils";
 import type { RequestDetails, StepStatus, TrackedTicket } from "@/types";
+import { formatDate } from "./formatters";
 
 const FLOW = ["SUBMITTED", "ASSIGNED", "IN_PROGRESS", "RESOLVED"];
 

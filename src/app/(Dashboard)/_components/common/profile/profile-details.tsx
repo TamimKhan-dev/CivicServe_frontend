@@ -1,6 +1,7 @@
 import { CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { cn, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/formatters";
+import { cn } from "@/lib/utils";
 import type { ProfileData } from "@/types";
 
 function Field({

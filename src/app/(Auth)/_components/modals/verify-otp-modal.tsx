@@ -23,7 +23,8 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { formatTime, maskEmail } from "@/lib/utils";
+import { formatTime } from "@/lib/formatters";
+import { maskEmail } from "@/lib/utils";
 
 const OTP_LENGTH = 6;
 

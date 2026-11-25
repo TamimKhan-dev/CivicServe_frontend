@@ -5,13 +5,11 @@ import { ArrowRight, CreditCard, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import {
-  useCreatePayment,
-  useUpdateRequestStatus,
-} from "@/hooks/requests/useRequests";
+import { useCreatePayment } from "@/hooks/dashboard/citizen/useCitizenHooks";
+import { useUpdateRequestStatus } from "@/hooks/dashboard/staff/useStaffHooks";
+import { canAssignStaff, needsPayment } from "@/lib/requests/requests-helpers";
 import type { UserRole } from "@/types";
 import { AssignStaffDialog } from "../../admin/all-requests/assign-staff-dialog";
-import { canAssignStaff, needsPayment } from "./helper";
 import type { RequestItem } from "./request-table-types";
 
 type Props = {

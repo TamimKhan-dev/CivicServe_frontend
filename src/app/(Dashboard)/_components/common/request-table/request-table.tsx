@@ -8,17 +8,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/formatters";
+import { isService } from "@/lib/requests/requests-helpers";
 import { PaymentBadge } from "../../citizen/my-requests/payment-badge";
 import {
   RequestListSkeleton,
   RequestRowsSkeleton,
 } from "../../citizen/overview/recent-requests-skeleton";
 import { StatusBadge } from "../../citizen/overview/status-badge";
-import { EmptyState } from "../table-empty-state";
-import { TablePagination } from "../table-pagination";
-import { isService } from "./helper";
 import type { RequestTableProps } from "./request-table-types";
+import { EmptyState } from "./table-empty-state";
+import { TablePagination } from "./table-pagination";
 import { TypeTag } from "./type-tag";
 
 const HEADERS = ["Request", "ID", "Category", "Submitted", "Status"];

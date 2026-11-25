@@ -1,6 +1,6 @@
 "use client";
 
-import { useAdminRecentRequests } from "@/hooks/requests/useRequests";
+import { useAdminRecentRequests } from "@/hooks/dashboard/admin/useAdminHooks";
 import type { RequestDetails } from "@/types";
 import { RecentRequestsCard } from "../../common/recent-requests";
 

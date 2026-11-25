@@ -1,4 +1,4 @@
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTime } from "@/lib/formatters";
 import type { RequestDetails } from "@/types";
 
 type TimelineStep = {

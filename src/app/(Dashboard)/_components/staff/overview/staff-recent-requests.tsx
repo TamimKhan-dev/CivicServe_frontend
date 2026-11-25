@@ -1,6 +1,6 @@
 "use client";
 
-import { useRecentAssignedTasks } from "@/hooks/requests/useRequests";
+import { useRecentAssignedTasks } from "@/hooks/dashboard/staff/useStaffHooks";
 import type { RequestDetails } from "@/types";
 import { RecentRequestsCard } from "../../common/recent-requests";
 
