@@ -6,8 +6,8 @@ import type { Category, RequestFilterValues } from "@/types";
 import { REQUEST_URL_DEFAULTS } from "../../citizen/my-requests/my-requests-table";
 import { RequestFiltersSkeleton } from "../../citizen/my-requests/request-filter-skeleton";
 import { RequestFilters } from "../../citizen/my-requests/requests-filters";
-import { RequestRowActions } from "../../common/request-table/request-row-actions";
-import RequestTable from "../../common/request-table/request-table";
+import { RequestRowActions } from "../../common/data-table/request-row-actions";
+import RequestTable from "../../common/data-table/request-table";
 
 const PAGE_SIZE = 5;
 

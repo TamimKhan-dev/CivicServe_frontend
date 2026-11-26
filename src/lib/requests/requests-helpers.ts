@@ -1,4 +1,4 @@
-import type { RequestItem } from "@/app/(Dashboard)/_components/common/request-table/request-table-types";
+import type { RequestItem } from "@/app/(Dashboard)/_components/common/data-table/request-table-types";
 import type { UserRole } from "@/types";
 
 export const isService = (r: RequestItem) => r.type === "SERVICE_REQUEST";

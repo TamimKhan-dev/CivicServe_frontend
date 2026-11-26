@@ -11,7 +11,8 @@
     "lint:check": "biome lint ./src",
     "lint:fix": "biome lint --write ./src",
     "check": "biome check ./src",
-    "check:fix": "biome check --write ./src"
+    "check:fix": "biome check --write ./src",
+    "check:fix-unsafe": "biome check --write --unsafe ./src"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

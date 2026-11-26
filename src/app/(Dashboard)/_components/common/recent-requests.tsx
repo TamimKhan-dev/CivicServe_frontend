@@ -16,7 +16,7 @@ import {
   RequestRowsSkeleton,
 } from "../citizen/overview/recent-requests-skeleton";
 import { StatusBadge } from "../citizen/overview/status-badge";
-import { EmptyState } from "./request-table/table-empty-state";
+import { EmptyState } from "./data-table/table-empty-state";
 
 type Props = {
   title?: string;

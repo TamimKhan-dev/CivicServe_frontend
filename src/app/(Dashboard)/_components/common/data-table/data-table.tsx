@@ -1,3 +1,5 @@
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { isValidElement, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -11,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import type {
+  DataTableHeaderConfig,
   DataTableLoadingState,
   DataTableProps,
   DataTableRowAction,
@@ -67,7 +70,32 @@ function isSplitLoading(
   );
 }
 
+function DataTableHeader({
+  title,
+  description,
+  action,
+}: DataTableHeaderConfig) {
+  return (
+    <div className="flex flex-col gap-3 border-b px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <div className="min-w-0 space-y-1">
+        <h2 className="text-base font-semibold text-slate-900">{title}</h2>
+        {description && <p className="text-sm text-slate-600">{description}</p>}
+      </div>
+      {action && (
+        <Link
+          href={action.href}
+          className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700"
+        >
+          {action.label}
+          <ArrowRight className="size-4" aria-hidden />
+        </Link>
+      )}
+    </div>
+  );
+}
+
 export default function DataTable<TData>({
+  header,
   columns,
   data,
   getRowId,
@@ -86,6 +114,7 @@ export default function DataTable<TData>({
 
   return (
     <Card className="gap-0 overflow-hidden rounded-2xl bg-white py-0 shadow-sm">
+      {header && <DataTableHeader {...header} />}
       {isLoading && !splitLoading ? (
         ((loadingState as ReactNode) ?? (
           <output className="block px-4 py-14 text-center text-sm text-slate-600">

@@ -1,5 +1,11 @@
 import type { Key, ReactNode } from "react";
 
+export type DataTableHeaderConfig = {
+  title: ReactNode;
+  description?: ReactNode;
+  action?: { label: string; href: string };
+};
+
 export type DataTableColumn<TData> = {
   id: string;
   header: ReactNode;
@@ -7,6 +13,7 @@ export type DataTableColumn<TData> = {
   className?: string;
   headerClassName?: string;
 };
+
 export type DataTableRowAction<TData> = {
   id: string;
   label: string;
@@ -16,6 +23,7 @@ export type DataTableRowAction<TData> = {
   disabled?: (row: TData) => boolean;
   hidden?: (row: TData) => boolean;
 };
+
 export type DataTablePagination = {
   page: number;
   pageSize: number;
@@ -23,9 +31,13 @@ export type DataTablePagination = {
   totalItems?: number;
   onPageChange: (page: number) => void;
 };
+
 export type DataTableSplitLoading = { desktop?: ReactNode; mobile?: ReactNode };
+
 export type DataTableLoadingState = ReactNode | DataTableSplitLoading;
+
 export type DataTableProps<TData> = {
+  header?: DataTableHeaderConfig;
   columns: DataTableColumn<TData>[];
   data: TData[];
   getRowId: (row: TData) => Key;

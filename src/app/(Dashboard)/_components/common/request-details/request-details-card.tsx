@@ -8,7 +8,7 @@ import {
 } from "@/lib/requests/requests-helpers";
 import { cn, timeAgo } from "@/lib/utils";
 import type { RequestDetails, UserRole } from "@/types";
-import { RequestRowActions } from "../request-table/request-row-actions";
+import { RequestRowActions } from "../data-table/request-row-actions";
 
 type StatusUi = {
   label: string;
