@@ -3,7 +3,7 @@
 import { useAllRequests, useCategories } from "@/hooks/requests/useRequests";
 import { useUrlFilters } from "@/hooks/shared/useUrlFilters";
 import type { Category, RequestFilterValues } from "@/types";
-import { REQUEST_URL_DEFAULTS } from "../../citizen/my-requests/request-data";
+import { REQUEST_URL_DEFAULTS } from "../../citizen/my-requests/my-requests-table";
 import { RequestFiltersSkeleton } from "../../citizen/my-requests/request-filter-skeleton";
 import { RequestFilters } from "../../citizen/my-requests/requests-filters";
 import { RequestRowActions } from "../../common/request-table/request-row-actions";

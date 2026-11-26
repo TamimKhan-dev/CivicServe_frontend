@@ -2,10 +2,10 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
-import RequestData from "../../_components/citizen/my-requests/request-data";
+import CitizenMyRequestsTable from "../../_components/citizen/my-requests/my-requests-table";
 import CitizenStats from "../../_components/citizen/overview/citizen-stats";
 
-export default function MyRequests() {
+export default function CitizenMyRequests() {
   return (
     <div className="space-y-6">
       {/* Welcome */}
@@ -39,7 +39,7 @@ export default function MyRequests() {
 
       {/* Search, filter, pagegination + Table data */}
       <Suspense fallback={null}>
-        <RequestData />
+        <CitizenMyRequestsTable />
       </Suspense>
     </div>
   );

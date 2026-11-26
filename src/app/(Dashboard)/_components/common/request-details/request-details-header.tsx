@@ -2,7 +2,7 @@
 
 import { ArrowLeft, Clock } from "lucide-react";
 import Link from "next/link";
-import { CopyIdButton } from "@/app/payment/_components/payment-receipt-details";
+import { CopyIdButton } from "@/components/shared/copy-id-button";
 import { formatDateTime } from "@/lib/formatters";
 import { timeAgo } from "@/lib/utils";
 import type { RequestDetails, UserRole } from "@/types";
