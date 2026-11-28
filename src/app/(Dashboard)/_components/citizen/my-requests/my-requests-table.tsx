@@ -6,7 +6,6 @@ import { useUrlFilters } from "@/hooks/shared/useUrlFilters";
 import type { Category, RequestFilterValues } from "@/types";
 import DataTable from "../../common/data-table/data-table";
 import { RequestRowActions } from "../../common/data-table/request-row-actions";
-import type { RequestItem } from "../../common/data-table/request-table-types";
 import { EmptyState } from "../../common/data-table/table-empty-state";
 import {
   RequestListSkeleton,
@@ -91,7 +90,7 @@ export default function CitizenMyRequestsTable() {
       )}
 
       {/* All requests */}
-      <DataTable<RequestItem>
+      <DataTable
         columns={requestColumns}
         data={requests}
         getRowId={(r) => r.id}

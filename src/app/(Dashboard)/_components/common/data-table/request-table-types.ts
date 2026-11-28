@@ -7,6 +7,7 @@ export type RequestItem = {
   createdAt: string;
   status: RequestStatus;
   type: RequestType;
+  location: string;
   category?: { name: string } | null;
   service?: { name: string; fee: number | string } | null;
   payment?: { status: PaymentStatus; amount: number | string } | null;

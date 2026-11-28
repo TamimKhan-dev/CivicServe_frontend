@@ -6,10 +6,19 @@ import type { Category, RequestFilterValues } from "@/types";
 import { REQUEST_URL_DEFAULTS } from "../../citizen/my-requests/my-requests-table";
 import { RequestFiltersSkeleton } from "../../citizen/my-requests/request-filter-skeleton";
 import { RequestFilters } from "../../citizen/my-requests/requests-filters";
+import {
+  RequestListSkeleton,
+  RequestRowsSkeleton,
+} from "../../citizen/overview/recent-requests-skeleton";
+import DataTable from "../../common/data-table/data-table";
 import { RequestRowActions } from "../../common/data-table/request-row-actions";
-import RequestTable from "../../common/data-table/request-table";
+import { EmptyState } from "../../common/data-table/table-empty-state";
+import {
+  staffTableColumns,
+  staffTableMobileRow,
+} from "../staff-request-columns";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 5;
 
 export default function AssignedRequest() {
   const { values, setParams, searchText, setSearchText } = useUrlFilters(
@@ -32,7 +41,7 @@ export default function AssignedRequest() {
     .filter((c) => c.isActive)
     .map((c) => ({ value: c.id, label: c.name }));
 
-  const { data, isPending: isRequestPending } = useAllRequests({
+  const { data, isPending } = useAllRequests({
     page,
     limit: PAGE_SIZE,
     searchTerm: values.searchTerm || undefined,
@@ -75,14 +84,17 @@ export default function AssignedRequest() {
         />
       )}
 
-      <RequestTable
-        requests={requests}
-        isPending={isRequestPending}
-        page={page}
-        totalPages={totalPages}
-        totalItems={totalItems}
-        pageSize={PAGE_SIZE}
-        onPageChange={(p) => setParams({ page: String(p) })}
+      <DataTable
+        columns={staffTableColumns}
+        renderMobileRow={staffTableMobileRow}
+        data={requests}
+        getRowId={(r) => r.id}
+        isLoading={isPending}
+        emptyState={<EmptyState />}
+        loadingState={{
+          desktop: <RequestRowsSkeleton count={PAGE_SIZE} />,
+          mobile: <RequestListSkeleton count={PAGE_SIZE} />,
+        }}
         renderActions={(r) => (
           <RequestRowActions
             request={r}
@@ -90,6 +102,13 @@ export default function AssignedRequest() {
             detailsHref={`/staff/assigned-requests/${r.id}`}
           />
         )}
+        pagination={{
+          page,
+          pageSize: PAGE_SIZE,
+          totalPages,
+          totalItems,
+          onPageChange: (p) => setParams({ page: String(p) }),
+        }}
       />
     </>
   );
